@@ -1,0 +1,28 @@
+@import './base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+    --gray-100: #C7D3EC;
+    --gray-200: #8999BA;
+    --gray-300: #4C566B;
+    --gray-400: #2C323E;
+    --blue-100: #7DA3F4;
+    --blue-200: #4D6EB5;
+    --blue-300: #52ADFF;
+    --blue: #2489FF;
+    --blue-400: #2B4F97;
+    --black: #141414;
+    --black-400: #17191D;
+    --secondary: #1C1E22;
+}
+.input-showcase {
+    @apply relative space-y-3 m-4 border border-gray-300 rounded-md p-4 max-w-[850px];
+}
+h3.title {
+    @apply absolute font-poppins font-semibold text-gray-200 text-[1.5rem] px-2 left-[0.4rem] top-[-1rem] rounded-[4px] bg-black-400;
+}
+
+h3.title.white {
+    @apply bg-white text-blue-100;
+}
