@@ -2,6 +2,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 :root {
     --gray-100: #C7D3EC;
     --gray-200: #8999BA;
@@ -25,4 +26,7 @@ h3.title {
 
 h3.title.white {
     @apply bg-white text-blue-100;
+}
+button.btn {
+    @apply font-poppins font-medium rounded-md min-h-[30px] min-w-[70px] text-white px-12 py-3 active:brightness-75 transition-all;
 }

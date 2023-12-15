@@ -17,7 +17,6 @@ import { Icon } from '@iconify/vue';
 import { ref, computed, onMounted } from 'vue';
 
 const date = ref(null);
-const picker_type = ref('date');
 
 const props = defineProps({
     theme: {

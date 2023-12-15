@@ -1,27 +1,30 @@
 <template>
-    <div class="component-container" :class="color_scheme[theme].color">
-        <div class="input-container" :class="color_scheme[theme].border">
-            <input v-model="input" :class="{'filled': input !== ''}" :type="show_text ? 'text':'password'" />
-            <label :class="color_scheme[theme].label">
-                {{ label }}
-            </label>
-            <template v-if="type === 'password'">
-                <Icon v-if="show_text" icon="ri:eye-off-line" class="password-toggler" :class="color_scheme[theme].color"  @click="show_text = !show_text"/>
-                <Icon v-else icon="ri:eye-line" class="password-toggler" :class="color_scheme[theme].color"  @click="show_text = !show_text" />
-            </template>
+    <div class="w-full min-h-[76px] mt-3">
+        <div class="component-container" :class="color_scheme[theme].color">
+            <div class="input-container" :class="color_scheme[theme].border">
+                <input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" 
+                :class="{'filled': modelValue !== ''}" :type="show_text ? 'text':'password'" />
+                <label :class="color_scheme[theme].label">
+                    {{ label }}
+                </label>
+                <template v-if="type === 'password'">
+                    <Icon v-if="show_text" icon="ri:eye-off-line" class="password-toggler" :class="color_scheme[theme].color"  @click="show_text = !show_text"/>
+                    <Icon v-else icon="ri:eye-line" class="password-toggler" :class="color_scheme[theme].color"  @click="show_text = !show_text" />
+                </template>
+            </div>
         </div>
-        <span class="error-message">{{ error_message }}</span>
+        <span class="error-message" :class="color_scheme[theme].color">{{ props.error }}</span>
     </div>
 </template>
 <style scoped>
     .component-container {
-        @apply flex flex-col max-w-[320px] font-poppins relative;
+        @apply flex flex-col min-w-[320px] font-poppins relative;
     }
     input {
         @apply bg-[transparent] focus-within:outline-none active:outline-none focus:outline-none mt-2 w-full;
     }
     .input-container {
-        @apply min-h-[55px] flex border-2 rounded-[4px] p-2;
+        @apply flex border-2 rounded-[4px] p-2;
     }
     .input-container label {
         @apply font-bold absolute left-[10px] top-[15px] transition-all;
@@ -31,18 +34,18 @@
         @apply scale-[0.6] top-[8px];
         transform-origin: top left;
     }
-    .component-container span.error-message {
-        @apply text-[14px] mt-1;
-    }
     .input-container svg.password-toggler {
         @apply absolute right-[10px] top-[50%] translate-y-[-50%] cursor-pointer text-[1.4rem];
+    }
+    span.error-message {
+        @apply text-[12px] mt-1;
     }
 </style>
 <script setup>
 import { Icon } from '@iconify/vue';
 import { ref, onMounted } from "vue";
 
-const component_props = defineProps({
+const props = defineProps({
     theme: {
         type: String,
         default: "dark"
@@ -51,9 +54,12 @@ const component_props = defineProps({
         type: String,
         default: "text"
     },
+    modelValue: String,
+    error: String,
     label: String,
     placeholder: Number
 });
+defineEmits(['update:modelValue']);
 const show_text = ref(true);
 const color_scheme = ref({
     light: {
@@ -69,11 +75,9 @@ const color_scheme = ref({
         label_active: 'text-gray-400'
     }
 })
-
-const input = ref('');
-const error_message = ref('');
+// const input = ref('');
 
 onMounted(() => {
-    show_text.value = component_props.type === 'text';
+    show_text.value = props.type === 'text';
 })
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <aside class="flex flex-col overflow-hidden bg-secondary grow-0 border-r border-r-gray-400 w-full transition-all" >
+    <aside class="flex flex-col overflow-hidden bg-secondary grow-0 border-r border-r-gray-400 w-full transition-all h-[100vh]" >
         <div class="flex p-4 w-[240px]">
             <div class="bg-gray-400 rounded-full h-[52px] w-[52px]" />
             <div class="font-poppins text-gray-100  ms-[18px] flex-1">
