@@ -60,7 +60,7 @@
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M170.478 334.751C207.101 335.327 241.805 335.873 241.805 329.511C241.74 327.878 237.831 321.14 220.932 316.437L227.202 315.106L300.021 316.227C300.365 316.232 300.566 315.808 300.383 315.518C295.278 307.439 301.882 275.737 330.658 277.634C336.885 278.045 361.701 282.295 359.446 312.837C359.428 313.076 359.624 313.288 359.863 313.272L382.976 311.79C383.524 311.755 384.022 311.44 384.225 310.93C384.819 309.438 385.226 307.291 383.663 306.638V296.84C384.527 296.84 385.227 296.137 385.241 295.272C385.249 294.787 385.259 294.326 385.269 293.886C385.39 288.45 385.44 286.226 379.992 279.397C379.607 278.915 379.518 278.258 379.768 277.694C380 277.17 379.946 276.561 379.6 276.105C370.384 263.977 348.399 260.094 329.662 256.786C325.102 255.98 320.735 255.209 316.79 254.361C315.475 254.079 314.136 253.921 312.791 253.921C310.258 253.921 307.755 253.394 305.478 252.284C301.921 250.548 298.22 248.593 294.315 246.529C273.315 235.43 246.376 221.194 203.72 221.194C201.959 211.983 192.572 203.164 179.859 203.36C169.688 203.517 163.364 208.782 161.473 211.395C156.779 199.637 145.435 206.104 143.87 212.179C134.873 200.028 116.488 204.732 112.184 218.842C108.996 229.296 118.182 233.148 122.159 233.54C116.226 230.013 115.705 220.41 120.79 215.118C129.81 205.733 142.175 214.596 144.848 218.842C144.065 217.47 147.195 210.807 153.062 210.807C157.757 210.807 159.321 215.38 159.517 217.666C169.883 210.219 184.357 209.435 192.963 219.822C199.847 228.131 197.396 240.791 195.31 246.082C208.766 245.142 209.001 252.941 208.415 257.057C199.613 259.996 196.418 267.182 195.31 270.775C194.332 269.403 191.007 266.31 184.357 267.835C168.123 271.559 174.512 284.791 179.271 291.156C171.135 275.792 188.073 266.072 195.701 275.479C198.441 269.284 201.717 265.729 205.221 263.78C213.16 259.365 223.92 262.986 229.429 270.209C237.374 280.625 227.257 291.366 219.563 295.272C223.866 297.82 224.304 300.955 223.866 303.503C222.301 312.596 209.653 313.824 203.525 313.301C209.131 314.869 221.323 318.822 221.323 322.512C221.323 329.511 166.503 332.777 138.534 334.41C148.793 334.41 159.718 334.582 170.478 334.751ZM218.56 255.795L289.262 265.025L296.83 258.115C297.579 257.432 297.518 256.253 296.666 255.703C288.184 250.231 248.149 225.746 213.137 227.317C209.53 227.479 210.375 230.069 213.711 240.293C214.996 244.23 216.649 249.298 218.56 255.795Z" fill="#7DA3F4"/>
                     <path d="M305.367 274.452L236.361 268.717C235.049 268.608 234.619 270.305 235.84 270.796C255.704 278.788 278.25 282.585 289.459 285.254C297.06 287.064 295.94 274.845 305.367 274.452Z" fill="#BCD1FF"/>
                 </svg>
-                <h1 class="text-[1.8rem] leading-[2rem] text-center text-gray-100 max-w-[402px] mt-5">
+                <h1 class="font-medium text-[1.8rem] leading-[1.8rem] text-center text-gray-100 max-w-[402px] mt-5">
                     Renueva el brillo de tu vehículo con nosotros
                 </h1>
                 <p class="text-gray-200 max-w-[425px] text-center mt-2">
@@ -68,34 +68,7 @@
                 </p>
             </div>
             <div class="grow flex items-center justify-center bg-white max-w-[50%] p-6">
-                <div class="max-w-[450px]">
-                    <div>
-                        <h1 class="font-semibold text-[24px] text-blue-200 ">
-                            El Lavadero <span class="text-blue-100">Inc.</span>
-                        </h1>
-                        <p class="text-[16px] text-blue-100 leading-[22px]">
-                            Ingrese sus credenciales para poder acceder a su cuenta en el sistema
-                        </p>
-                    </div>
-                    <form @submit="onSubmit" class="mt-6 mb-4">
-                        <CustomInput theme="light" label="Usuario" 
-                        v-model="username" v-bind="usernameAttrs" :error="errors.username" />
-
-                        <CustomInput theme="light" label="Contraseña" type="password" 
-                        v-model="password" v-bind="passwordAttrs" :error="errors.password" />
-
-                        <h2 class="text-blue-100 text-[14px] hover:underline cursor-pointer text-end translate-y-[-20px]">
-                            ¿Olvidaste tu contraseña?
-                        </h2>
-                        <button class="btn bg-blue-100 hover:brightness-[95%] w-full" :disabled="isSubmitting" submit>
-                            Iniciar sesión
-                        </button>
-                        <h2 class="text-gray-300 text-[14px] text-center mt-3">
-                            <span class="cursor-pointer hover:brightness-[140%] transition-all">Aún no tienes cuenta?</span> 
-                            <span class="cursor-pointer ms-2 text-blue-100 font-medium hover:underline">Regístrate</span>
-                        </h2>
-                    </form>
-                </div>
+                <RouterView />
             </div>
         </div>
     </div>
@@ -104,22 +77,5 @@
 
 </style>
 <script setup>
-import CustomInput from '@/components/CustomInput.vue';
-import { useForm } from 'vee-validate';
-import { object, string  } from 'yup';
-
-const { values, errors, handleSubmit, defineField } = useForm({
-    validationSchema: object({
-        username: string().required('El nombre de usuario es requerido'),
-        password: string().required('La contraseña es requerida'),
-    }),
-});
-
-const [username, usernameAttrs] = defineField('username');
-const [password, passwordAttrs] = defineField('password');
-
-const onSubmit = handleSubmit(values => {
-    console.log(values);
-});
 
 </script>

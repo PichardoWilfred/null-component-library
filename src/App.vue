@@ -16,8 +16,7 @@
         <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/admin">Admin</RouterLink>
-          <RouterLink to="/register">Register</RouterLink>
-          <RouterLink to="/login">Login</RouterLink>
+          <RouterLink to="/auth/login">Authentication</RouterLink>
         </nav>
       </header>
       <main class="grow overflow-y-scroll overflow-x-hidden">
@@ -35,7 +34,7 @@ header nav {
   @apply ms-4;
 }
 header nav a {
-  @apply ms-2;
+  @apply ms-6;
 }
 main {
   height: calc(100vh - 64px);
