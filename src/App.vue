@@ -3,7 +3,6 @@
   import { ref } from "vue";
   
   import Sidebar from './components/Sidebar.vue';
-
   const user = ref(null);
 
 </script>
@@ -15,8 +14,9 @@
       <header>
         <nav>
           <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/admin">Admin</RouterLink>
+          <RouterLink to="/client">Client</RouterLink>
           <RouterLink to="/auth/login">Authentication</RouterLink>
+          <RouterLink to="/admin">Admin</RouterLink>
         </nav>
       </header>
       <main class="grow overflow-y-scroll overflow-x-hidden">
@@ -29,9 +29,6 @@
 <style scoped>
 header {
   @apply flex items-center font-poppins text-white bg-secondary min-h-[64px];
-}
-header nav {
-  @apply ms-4;
 }
 header nav a {
   @apply ms-6;

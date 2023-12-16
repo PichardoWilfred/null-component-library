@@ -1,9 +1,6 @@
-
 <template>
-    <div class="flex items-center justify-center bg-[#E4E4E4] h-full font-poppins">
-        <div class="flex w-full max-w-[1200px] h-[60vh]">
-            <div class="grow flex flex-col justify-center content-center items-center bg-secondary">
-                <svg width="427" height="336" viewBox="0 0 427 336" fill="none">
+    <div class="flex flex-col justify-center items-center max-w-[800px] h-full m-auto font-poppins">
+        <svg width="627" height="436" viewBox="0 0 427 336" fill="none">
                     <g opacity="0.4">
                         <path d="M421.406 268.828H401.426V197.988L421.406 217.515V268.828Z" fill="#2A344C"/>
                         <path d="M174.375 108.984L152.124 85.3711V268.828H174.375V108.984Z" fill="#313846"/>
@@ -59,19 +56,31 @@
                     <path d="M205.794 243.422C204.223 242.165 201.211 242.243 199.902 242.44C202.259 239.14 203.175 230.394 203.437 227.513C204.223 229.556 205.401 239.69 205.794 243.422Z" fill="#1E1E1E"/>
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M170.478 334.751C207.101 335.327 241.805 335.873 241.805 329.511C241.74 327.878 237.831 321.14 220.932 316.437L227.202 315.106L300.021 316.227C300.365 316.232 300.566 315.808 300.383 315.518C295.278 307.439 301.882 275.737 330.658 277.634C336.885 278.045 361.701 282.295 359.446 312.837C359.428 313.076 359.624 313.288 359.863 313.272L382.976 311.79C383.524 311.755 384.022 311.44 384.225 310.93C384.819 309.438 385.226 307.291 383.663 306.638V296.84C384.527 296.84 385.227 296.137 385.241 295.272C385.249 294.787 385.259 294.326 385.269 293.886C385.39 288.45 385.44 286.226 379.992 279.397C379.607 278.915 379.518 278.258 379.768 277.694C380 277.17 379.946 276.561 379.6 276.105C370.384 263.977 348.399 260.094 329.662 256.786C325.102 255.98 320.735 255.209 316.79 254.361C315.475 254.079 314.136 253.921 312.791 253.921C310.258 253.921 307.755 253.394 305.478 252.284C301.921 250.548 298.22 248.593 294.315 246.529C273.315 235.43 246.376 221.194 203.72 221.194C201.959 211.983 192.572 203.164 179.859 203.36C169.688 203.517 163.364 208.782 161.473 211.395C156.779 199.637 145.435 206.104 143.87 212.179C134.873 200.028 116.488 204.732 112.184 218.842C108.996 229.296 118.182 233.148 122.159 233.54C116.226 230.013 115.705 220.41 120.79 215.118C129.81 205.733 142.175 214.596 144.848 218.842C144.065 217.47 147.195 210.807 153.062 210.807C157.757 210.807 159.321 215.38 159.517 217.666C169.883 210.219 184.357 209.435 192.963 219.822C199.847 228.131 197.396 240.791 195.31 246.082C208.766 245.142 209.001 252.941 208.415 257.057C199.613 259.996 196.418 267.182 195.31 270.775C194.332 269.403 191.007 266.31 184.357 267.835C168.123 271.559 174.512 284.791 179.271 291.156C171.135 275.792 188.073 266.072 195.701 275.479C198.441 269.284 201.717 265.729 205.221 263.78C213.16 259.365 223.92 262.986 229.429 270.209C237.374 280.625 227.257 291.366 219.563 295.272C223.866 297.82 224.304 300.955 223.866 303.503C222.301 312.596 209.653 313.824 203.525 313.301C209.131 314.869 221.323 318.822 221.323 322.512C221.323 329.511 166.503 332.777 138.534 334.41C148.793 334.41 159.718 334.582 170.478 334.751ZM218.56 255.795L289.262 265.025L296.83 258.115C297.579 257.432 297.518 256.253 296.666 255.703C288.184 250.231 248.149 225.746 213.137 227.317C209.53 227.479 210.375 230.069 213.711 240.293C214.996 244.23 216.649 249.298 218.56 255.795Z" fill="#7DA3F4"/>
                     <path d="M305.367 274.452L236.361 268.717C235.049 268.608 234.619 270.305 235.84 270.796C255.704 278.788 278.25 282.585 289.459 285.254C297.06 287.064 295.94 274.845 305.367 274.452Z" fill="#BCD1FF"/>
-                </svg>
-                <h1 class="font-medium text-[1.8rem] leading-[1.8rem] text-center text-gray-100 max-w-[402px] mt-5">
-                    Renueva el brillo de tu vehículo con nosotros
-                </h1>
-                <p class="text-gray-200 max-w-[425px] text-center mt-2">
-                    Dale a tu coche el cuidado que se merece, ¡Deja que nuestro lavadero resalte su belleza en cada detalle!
-                </p>
-            </div>
-            <div class="grow flex items-center justify-center bg-white max-w-[50%] p-6">
-                <RouterView />
-            </div>
+        </svg>
+        <h2 class="max-w-[460px] text-[1.7rem] leading-[2rem] text-gray-100 font-semibold text-center mt-8 mb-3">
+            ¡Reserva Ahora y Dale a tu Auto el Cuidado que se Merece!
+        </h2>
+        <p class="max-w-[520px] text-[1.2rem] leading-[1.4rem] text-gray-300 text-center">
+            Haz que tu vehículo luzca impecable otra vez. ¡Programa una cita para un lavado de calidad y devuélvele su brillo original!
+        </p>
+        <div class="flex items-center content-center mt-6 space-x-4">
+            <button class="btn flex bg-blue-100 min-w-[260px]">
+                <Icon icon="gravity-ui:thunderbolt" class="me-3 text-[1.3rem]" />
+                Crear cita rápida
+            </button>
+            <span class="text-gray-200 font-medium">
+                ó
+            </span>
+            <button class="btn flex bg-blue-400 min-w-[260px]">
+                <Icon icon="fe:calendar" class="me-3 text-[1.3rem]" />
+                Programar cita
+            </button>
         </div>
     </div>
 </template>
+<style scoped>
+
+</style>
 <script setup>
+import { Icon } from '@iconify/vue';
 </script>

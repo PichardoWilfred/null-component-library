@@ -1,8 +1,11 @@
 <template>
-    <div class="w-full min-h-[76px] mt-3">
+    <!-- min-h-[76px] -->
+    <div class="component-input-container no-height w-full mt-3">
         <div class="component-container" :class="color_scheme[theme].color">
             <div class="input-container" :class="color_scheme[theme].border">
+                <Icon v-if="icon" icon="fe:search" class="text-[1.5rem] me-2"/>
                 <input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" 
+                :placeholder="placeholder"
                 :class="{'filled': modelValue !== ''}" :type="show_text ? 'text':'password'" />
                 <label :class="color_scheme[theme].label">
                     {{ label }}
@@ -17,11 +20,20 @@
     </div>
 </template>
 <style scoped>
+    .component-input-container.no-height {
+        @apply min-h-[76px];
+    }
+    .component-input-container.no-error {
+        min-height: unset !important;
+    }
     .component-container {
         @apply flex flex-col min-w-[320px] font-poppins relative;
     }
     input {
         @apply bg-[transparent] focus-within:outline-none active:outline-none focus:outline-none mt-2 w-full;
+    }
+    .only-placeholder input {
+        @apply mt-0;
     }
     .input-container {
         @apply flex border-2 rounded-[4px] p-2;
@@ -46,6 +58,7 @@ import { Icon } from '@iconify/vue';
 import { ref, onMounted } from "vue";
 
 const props = defineProps({
+    modelValue: String,
     theme: {
         type: String,
         default: "dark"
@@ -54,10 +67,13 @@ const props = defineProps({
         type: String,
         default: "text"
     },
-    modelValue: String,
+    icon: {
+        type: Boolean,
+        default: false
+    },
+    placeholder: String,
     error: String,
     label: String,
-    placeholder: Number
 });
 defineEmits(['update:modelValue']);
 const show_text = ref(true);
