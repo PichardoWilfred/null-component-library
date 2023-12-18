@@ -1,4 +1,5 @@
 import { useAuthStore } from '@/stores/auth';
+import axios  from 'axios';
 
 export const fetchWrapper = {
     get: request('GET'),
@@ -12,13 +13,22 @@ function request(method) {
         const requestOptions = {
             method,
             mode: 'no-cors',
-            headers: authHeader(url)
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'text/plain',
+            },
+            body: JSON.stringify(body)
         };
-        if (body) {
-            requestOptions.headers['Content-Type'] = 'application/json';
-            requestOptions.body = JSON.stringify(body);
-        }
-        return fetch(url, requestOptions).then(handleResponse);
+
+        // console.log( requestOptions );
+        // console.log( requestOptions.body );
+
+        // headers: authHeader(url)
+        // if (body) {
+        //     // requestOptions.headers['Content-Type'] = ;
+        //     requestOptions.body = ;
+        // }
+        return axios(url, requestOptions).then(handleResponse);
     }
 }
 

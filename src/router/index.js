@@ -28,4 +28,14 @@ export const router = createRouter({
   ]
 });
 
-//  { router };
+router.beforeEach(async (to) => {
+  // redirect to login page if not logged in and trying to access a restricted page
+  const publicPages = ['/auth/login'];
+  const authRequired = !publicPages.includes(to.path);
+  const auth = JSON.parse(localStorage.getItem('user'));
+
+  if (authRequired && !auth.user) {
+      auth.returnUrl = to.fullPath;
+      return '/login';
+  }
+});

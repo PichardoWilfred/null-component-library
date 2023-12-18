@@ -64,6 +64,11 @@
         // } else {
         //     request_error.value = true;
         // }
+        
+        // return authStore.get_services().then((value) => {
+        //     console.log(value);
+        // }).catch(error => { console.log(error) });
+
         return authStore.login(username, password).catch(error => {console.log(error);});;
     }); 
 </script> 
