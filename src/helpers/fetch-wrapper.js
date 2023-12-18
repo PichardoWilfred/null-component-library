@@ -20,15 +20,7 @@ function request(method) {
             body: JSON.stringify(body)
         };
 
-        // console.log( requestOptions );
-        // console.log( requestOptions.body );
-
-        // headers: authHeader(url)
-        // if (body) {
-        //     // requestOptions.headers['Content-Type'] = ;
-        //     requestOptions.body = ;
-        // }
-        return axios(url, requestOptions).then(handleResponse);
+        return fetch(url, requestOptions).then(handleResponse);
     }
 }
 

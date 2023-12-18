@@ -2,25 +2,22 @@ import { defineStore } from 'pinia';
 
 import { fetchWrapper } from '@/helpers';
 import { router } from '@/router';
-import  axios  from 'axios';
 
 const baseUrl = `${import.meta.env.VITE_API_URL}`;
 
 export const useAuthStore = defineStore({
     id: 'auth',
     state: () => ({
+        // JSON.parse(localStorage.getItem('user'))
         // initialize state from local storage to enable user to stay logged in
-        user: JSON.parse(localStorage.getItem('user')),
+        user: {},
         services: null,
         returnUrl: null
     }),
     actions: {
         async login(username, password) {
-            // const user = { username, password };
-            const user = await axios.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });
-            // await user.json()
+            const user = await fetchWrapper.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });
             console.log(user);
-            // console.log();
             // update pinia state
             this.user = user;
             // store user details and jwt in local storage to keep user logged in between page refreshes
