@@ -35,10 +35,8 @@ export default {
     props: {
         modelValue: String
     },
-
     emits: ['update:modelValue'],
-
-    data(){
+    data() {
         return {
             search: '',
             showResults: false,
@@ -47,21 +45,19 @@ export default {
             selectedCategory: {}
         }
     },
-
     mounted(){
         this.filteredCategories = this.$page.props.categories
     },
 
     watch: {
         search(){
-            // Handles deletion from the field
-            if( this.search == '' ){
+            if( this.search == '' ){ // Handles deletion from the field
                 this.selectedCategory = {};
                 this.filter();
             }
         }
     },
-
+    computed: {},
     methods: {
         selectCategory( index = null ){
             if( !index ){

@@ -12,14 +12,15 @@
             </div>
         </div>
         <ul class="grow flex flex-col text-white font-poppins min-w-[240px]">
-            <router-link v-for="({ icon, label, address },index) in navigation_" :key="index"
-            :to="address"
+            <!-- :to="address" -->
+            <li v-for="({ icon, label, address, action },index) in navigation_" :key="index"
+            @click.prevent="action"
             class="flex items-center cursor-pointer text-gray-200 last:mb-0 py-[18px] px-4 last:mt-auto hover:text-white hover:bg-gray-400 transition-all">
                 <Icon :icon="icon" class="mx-[10px] text-[1.8rem]"/>
                 <span class="ms-[19px]">
                     {{ label }}
                 </span>
-            </router-link>
+            </li>
         </ul>
     </aside>
 </template>
@@ -28,29 +29,56 @@
     aside:hover { @apply max-w-[260px]; }
 </style>
 <script setup>
-import { ref } from 'vue'
 import { Icon } from '@iconify/vue';
+import { ref } from 'vue';
+import { router } from '@/router';
+
+import { useAuthStore } from '@/stores/auth.js';
+const auth = useAuthStore();
+
 const navigation_ = ref([
     {
         icon: 'fluent:task-list-square-16-filled',
         label: 'Historial de Citas',
-        address: '/'
+        address: '/',
+        action: () => {
+
+        }
     },
     {
         icon: 'fluent:task-list-24-regular',
         label: 'Citas Activas',
-        address: '/login'
+        address: '/login',
+        action: () => {
+
+        }
 
     },
     {
         icon: 'ri:user-line',
         label: 'Clientes',
-        address: '/admin'
+        address: '/admin',
+        action: () => {
+
+        }
     },
     {
         icon: 'material-symbols:dashboard-outline-rounded',
         label: 'Manejo general',
-        address: '/settings'
+        address: '/settings',
+        action: () => {
+            // router.push('/auth/login');
+        }
     },
+    {
+        icon: 'mynaui:logout',
+        label: 'Cerrar Sesión',
+        address: '/settings',
+        action: () => {
+            auth.logout();
+        }
+    }
 ])
+// const logout = () => {
+// }
 </script>

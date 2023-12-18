@@ -64,14 +64,14 @@
             Haz que tu vehículo luzca impecable otra vez. ¡Programa una cita para un lavado de calidad y devuélvele su brillo original!
         </p>
         <div class="buttons-showcase">
-            <button class="btn bg-blue-100">
+            <button class="btn bg-blue-100" @clikc.prevent="create_appointment('fast')">
                 <Icon icon="gravity-ui:thunderbolt" class="me-3 text-[1.3rem]" />
                 Crear cita rápida
             </button>
             <span class="text-gray-200 font-medium">
                 ó
             </span>
-            <button class="btn bg-blue-400">
+            <button class="btn bg-blue-400" @clikc.prevent="create_appointment('regular')">
                 <Icon icon="fe:calendar" class="me-3 text-[1.3rem]" />
                 Programar cita
             </button>
@@ -89,4 +89,7 @@
 </style>
 <script setup>
 import { Icon } from '@iconify/vue';
+// const create_appointment = () => {
+//     console.log("create fast appointment");
+// }
 </script>

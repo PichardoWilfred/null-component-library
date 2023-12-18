@@ -18,6 +18,9 @@
             <h2 class="text-blue-100 text-[14px] hover:underline cursor-pointer text-end translate-y-[-20px]">
                 ¿Olvidaste tu contraseña?
             </h2>
+            <p v-if="request_error" class="text-blue-100 text-[14px] hover:underline cursor-pointer text-start my-3">
+                Algo salió mal
+            </p>
             <button class="btn bg-blue-100 hover:brightness-[95%] w-full" :disabled="isSubmitting" submit>
                 Iniciar sesión
             </button>
@@ -32,9 +35,13 @@
 </template>
 <script setup>
     import CustomInput from '@/components/CustomInput.vue';
+
     import { RouterLink } from 'vue-router';
-    import { useForm } from 'vee-validate';
     import { object, string  } from 'yup';
+    import { useForm } from 'vee-validate';
+    import { ref } from "vue";
+
+    import { useAuthStore } from '@/stores/auth.js';
 
     const { errors, handleSubmit, defineField } = useForm({
         validationSchema: object({
@@ -46,7 +53,18 @@
     const [username, usernameAttrs] = defineField('username');
     const [password, passwordAttrs] = defineField('password');
 
-    const onSubmit = handleSubmit(values => {
-        console.log(values);
-    });
+    const request_error = ref(false);
+
+    const onSubmit = handleSubmit((values) => {
+        const authStore = useAuthStore();
+        const { username, password } = values;
+
+        // if (username === "1" && password === "1") {
+
+        //     localStorage.setItem('user', JSON.stringify({ username: '1', password: '1' }));
+        // } else {
+        //     request_error.value = true;
+        // }
+        return authStore.login(username, password);
+    }); 
 </script> 
