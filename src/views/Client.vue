@@ -63,15 +63,15 @@
         <p class="max-w-[520px] text-[1.2rem] leading-[1.4rem] text-gray-300 text-center">
             Haz que tu vehículo luzca impecable otra vez. ¡Programa una cita para un lavado de calidad y devuélvele su brillo original!
         </p>
-        <div class="flex items-center content-center mt-6 space-x-4">
-            <button class="btn flex bg-blue-100 min-w-[260px]">
+        <div class="buttons-showcase">
+            <button class="btn bg-blue-100">
                 <Icon icon="gravity-ui:thunderbolt" class="me-3 text-[1.3rem]" />
                 Crear cita rápida
             </button>
             <span class="text-gray-200 font-medium">
                 ó
             </span>
-            <button class="btn flex bg-blue-400 min-w-[260px]">
+            <button class="btn bg-blue-400">
                 <Icon icon="fe:calendar" class="me-3 text-[1.3rem]" />
                 Programar cita
             </button>
@@ -79,7 +79,13 @@
     </div>
 </template>
 <style scoped>
-
+    .buttons-showcase {
+        @apply flex items-center content-center mt-6 space-x-4;
+    }
+    .buttons-showcase button {
+        @apply flex;
+        min-width: 260px;
+    }
 </style>
 <script setup>
 import { Icon } from '@iconify/vue';
