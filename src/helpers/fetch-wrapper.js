@@ -11,6 +11,7 @@ function request(method) {
     return (url, body) => {
         const requestOptions = {
             method,
+            mode: 'no-cors',
             headers: authHeader(url)
         };
         if (body) {

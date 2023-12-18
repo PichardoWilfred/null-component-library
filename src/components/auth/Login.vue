@@ -60,11 +60,10 @@
         const { username, password } = values;
 
         // if (username === "1" && password === "1") {
-
         //     localStorage.setItem('user', JSON.stringify({ username: '1', password: '1' }));
         // } else {
         //     request_error.value = true;
         // }
-        return authStore.login(username, password);
+        return authStore.login(username, password).catch(error => {console.log(error);});;
     }); 
 </script> 
