@@ -27,6 +27,7 @@ export const useAuthStore = defineStore({
         services: null, // servicios
         returnUrl: null,
         stations: null, // estaciones
+        stations_services: null,
         appointments: null, // citas
         washers: null, // lavadores
         washers_services: null
@@ -67,14 +68,24 @@ export const useAuthStore = defineStore({
                 console.log(error);
             }
         },  
-        async update_washer_services(lavador, servicio, to_add) {
+        async update_washer_services(washer, service, to_add) {
             if (to_add) {
                 const response = await fetchWrapper.post(`${baseUrl}Lavador/conectarServicio`, { 
-                    idLavadorLavser: lavador, 
-                    idServicioLavser: servicio
+                    idLavadorLavser: washer, 
+                    idServicioLavser: service
                 });
             }else {
-                const response = await fetchWrapper.delete(`${baseUrl}Lavador/${lavador}/${servicio}`);
+                const response = await fetchWrapper.delete(`${baseUrl}Lavador/${washer}/${service}`);
+            }
+        },
+        async update_station_services(station, service, to_add) {
+            if (to_add) {
+                const response = await fetchWrapper.post(`${baseUrl}Estacion/conectarServicio`, { 
+                    idEstacionEstser: station, 
+                    idServicioEstser: service
+                });
+            }else {
+                const response = await fetchWrapper.delete(`${baseUrl}Estacion/${station}/${service}`);
             }
         },
         async get_stations() {
@@ -84,7 +95,11 @@ export const useAuthStore = defineStore({
             } catch (error) {
                 console.log(error);
             }
-        }, 
+        },
+        async get_stations_service() {
+            const stations_services = await fetchWrapper.get(`${baseUrl}Estacion/listaEstacionServicio`);
+            this.stations_services = stations_services;
+        },
         async get_citas() {
             const appointments = await fetchWrapper.get(`${baseUrl}Cita`);
             this.appointments = appointments.filter((appointment) => appointment.idUsuarioCit === this.user.role);

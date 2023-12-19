@@ -58,7 +58,7 @@ const props = defineProps({
     no_button: {
         type: Boolean
     },
-    washer_id: {
+    detail_id: {
         type: String
     },
     real_time: {
@@ -68,15 +68,19 @@ const props = defineProps({
 
 const auth = useAuthStore();
 
-const emit = defineEmits('services');
+const emit = defineEmits('services', 'realTimeUpdate');
 
 const services = ref(null);
 const error_ = ref(false);
 
-const add_to_list = async (index) => {
+const add_to_list = (index) => {
     services.value[index].checked = !services.value[index].checked;
     if (props.real_time) {
-        await auth.update_washer_services(props.washer_id, services.value[index].idServicioSer, services.value[index].checked)
+        emit('realTimeUpdate', {
+            entity: props.detail_id, 
+            service: services.value[index].idServicioSer, 
+            to_add: services.value[index].checked
+        });
     }
 };  
 const send_appointment = () => {
@@ -95,7 +99,7 @@ onMounted(async () => {
     }
     services.value = JSON.parse(JSON.stringify(auth.services)); 
     if (props.real_time) {
-        const indexes_to_check = props.checked_services.map((el) => el.idServicioLavser);
+        const indexes_to_check = props.checked_services;
         services.value.map((service) => {
             if ( indexes_to_check.includes(service.idServicioSer) ) service.checked = true;;
         });
