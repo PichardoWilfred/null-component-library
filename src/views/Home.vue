@@ -64,25 +64,57 @@
           Haz que tu vehículo luzca impecable otra vez. ¡Programa una cita para un lavado de calidad y devuélvele su brillo original!
       </p>
       <div class="buttons-showcase">
-          <button class="btn bg-blue-100" @click.prevent="open_modal">
+          <button class="btn bg-blue-100" @click.prevent="open_fast_appointment_modal">
               <Icon icon="gravity-ui:thunderbolt" class="me-3 text-[1.3rem]" />
               Cita rápida
           </button>
           <span class="text-gray-200 font-medium">
               ó
           </span>
-          <button class="btn bg-blue-400" @click.prevent="open_modal">
+          <button class="btn bg-blue-400" @click.prevent="open_appointment_modal">
               <Icon icon="fe:calendar" class="me-3 text-[1.3rem]" />
               Programar cita
           </button>
       </div>
-      <CustomModal v-if="fast_appointment_modal" title="Crear cita rápida" @closeModal="() => { fast_appointment_modal = false }">
-          <div>
-              <p class="text-gray-200">
-                  Se le asignará una cita con una <b>fecha predeterminada</b> por el sistema.
-              </p>
-              <ServicesList @services="create_fast_appointment" />
+      <CustomModal v-if="appointment_modal" title="Programar una cita" @closeModal="() => { appointment_modal = false }">
+          <div class="text-gray-200">
+            <p>
+              Seleccione una fecha en la cual usted desee pautar su cita
+            </p>
+            <div class="flex max-w-[520px] my-3">
+              <div class="me-3 max-w-[180px]">
+                <h4>Fecha: </h4>
+                <VueDatePicker v-model="date" locale="es" :enable-time-picker="false" :clearable="false" 
+                :allowed-dates="available_dates" dark />
+              </div>
+              <div class="max-w-[140px]">
+                <h4>Hora: </h4>
+                <div class="relative">  
+                  <VueDatePicker v-model="hour"
+                  locale="es" time-picker :clearable="false" :is-24="false" dark />
+                  <div class="p-1 bg-[#17191D] w-max absolute top-[5px] left-[5px]">
+                      <Icon icon="ri:alarm-line" class="text-[1.2rem] text-gray-100" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn bg-blue-100 flex" @click.prevent="parse_date">
+              Obtener valores
+            </button>
+            <p class="text-gray-200">
+              Seleccione los servicios que necesite
+            </p>
+            <ServicesList @services="create_appointment" />
           </div>
+      </CustomModal>
+      <CustomModal v-if="fast_appointment_modal" title="Crear cita rápida" @closeModal="() => { fast_appointment_modal = false }">
+        <div>
+          <p class="text-gray-200 max-w-[700px]">
+            Una vez haya seleccionado los servicios que desee, se le asignará una cita con una 
+            <b>fecha predeterminada</b> por el sistema.
+          </p>
+          <ServicesList @services="create_fast_appointment" />
+        </div>
       </CustomModal>
 
   </div>
@@ -98,24 +130,61 @@
 </style>
 <script setup>
 import { Icon } from '@iconify/vue';
-import { ref, onMounted } from "vue";
+import { ref, watch, computed } from "vue";
 import moment from 'moment';
 
 import CustomModal from "../components/CustomModal.vue"
 import ServicesList from '@/components/ServicesList.vue';
 
 import { useAuthStore } from '@/stores/auth.js';
+import CustomDateInput from '@/components/CustomDateInput.vue';
 
 const auth = useAuthStore();
 
-const fast_appointment_modal = ref(false);
+const fast_appointment_modal = ref(false); //modal
+const appointment_modal = ref(false); //modal
 
-const open_modal = () => {
+const open_fast_appointment_modal = () => {
   fast_appointment_modal.value = true;
+}
+const open_appointment_modal = () => {
+  appointment_modal.value = true;
+}
+const create_appointment = (services) => {
+  appointment_modal.value = false;
+  if (date.value && hour.value) { // if we have a date and an hour set 
+    // Parse the string date into a Date object
+    const date_ = new Date(date.value);
+
+    date_.setHours(hour.value.hours);
+    date_.setMinutes(hour.value.minutes);
+    date_.setSeconds(hour.value.seconds);
+
+    const date_logger = moment(date_ , 'DD/MM/YYYY HH:mm');
+    return auth.create_appointment(services, date_logger.locale('es').format('D [de] MMMM YYYY, h:mm A'), date_);
+  }
 }
 const create_fast_appointment = (services) => {
   fast_appointment_modal.value = false;
   return auth.create_fast_appointment(services);
 }
 
+const message = ref(''); //stored message
+
+const date = ref(new Date());
+const available_dates = computed(() => {
+    const available_dates_ = [];
+    for (let i = 1; i < 90; i++) { // 3 months = 90 days (approximately)
+      const date = new Date();
+      date.setDate(date.getDate() + i);
+      available_dates_.push(date); // Push formatted date to array
+    }
+    return available_dates_;
+});
+
+const hour = ref();
+
+const parse_date = () => {
+  return date_; 
+}
 </script>

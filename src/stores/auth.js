@@ -34,7 +34,6 @@ export const useAuthStore = defineStore({
             localStorage.setItem('user', JSON.stringify(this.user));
             // redirect to previous url or default to home page
             router.replace('/');
-            console.log('navigating');
         },
         async create_fast_appointment(services) {
             const response = await fetchWrapper.post(`${baseUrl}Agenda/Rapida`, { idParametroNumerico: this.user.role, parametroNvarchar: services.toString() });
@@ -46,6 +45,15 @@ export const useAuthStore = defineStore({
             const date_formatted = format_date(extracted_date);
 
             let instance = $toast.success(`Cita pautada para ${date_formatted}`);
+        },
+        async create_appointment(services, message, date) {
+            const response = await fetchWrapper.post(`${baseUrl}Agenda/Agenda`, { 
+                idParametroNumerico: this.user.role, 
+                parametroNvarchar: services.toString(),
+                parametroDatetime: date,
+            });
+
+            let instance = $toast.default(`Cita pautada para ${message}`);
         },
         async get_services() {
             try {

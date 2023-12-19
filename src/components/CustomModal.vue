@@ -6,7 +6,7 @@
                 <h3>
                     {{ title }}
                 </h3>
-                <span class="cursor-pointer text-[1rem] text-gray-300 ms-auto" @click="closeModal">
+                <span class="cursor-pointer text-[1.3rem] text-gray-300 ms-auto" @click="closeModal">
                     ✖
                 </span>
             </div>

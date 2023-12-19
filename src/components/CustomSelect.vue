@@ -98,12 +98,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 const show_options = ref(false);
 
-// watch(props.modelValue, (value) => {
-//     console.log(value);
-// });
-
 const select_option = (index) => {
-    // props.modelValue = ;
     show_options.value = false;
     emit('update:modelValue', JSON.parse(JSON.stringify(props.options[index])));
 }

@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div class="relative border border-gray-400 mt-12 rounded-[6px]">
+        <div class="relative border border-gray-400 mt-6 rounded-[6px]">
             <h5 class="text-[1.4rem] text-gray-100 translate-y-[-15px] translate-x-[6px] bg-secondary px-3 font-medium max-w-max">
-                Servicios disponibles
+                Servicios
             </h5>
             <ul v-if="services" class="services-list">
                 <li v-for="(service, index) in services" :key="index" :class="{'selected': service.checked}"
