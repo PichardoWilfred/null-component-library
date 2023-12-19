@@ -1,6 +1,5 @@
 <script setup>
-  import { RouterLink, RouterView } from 'vue-router';
-  import { ref, onMounted, watch } from "vue";
+  import { RouterView } from 'vue-router';
   import { useAuthStore } from '@/stores/auth.js';
 
   import Sidebar from './components/Sidebar.vue';
@@ -11,15 +10,7 @@
   <div class="flex h-full">
     <Sidebar v-if="auth.user" />
     <div class="grow flex flex-col transition-all">
-      <header>
-        <nav>
-          <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/appointments">Citas</RouterLink>
-          <RouterLink to="/auth/login">Authentication</RouterLink>
-          <RouterLink to="/admin">Admin</RouterLink>
-        </nav>
-      </header>
-      <main class="grow overflow-y-scroll overflow-x-hidden">
+      <main class="grow overflow-y-scroll overflow-x-hidden h-screen">
         <RouterView />
       </main>
     </div>
@@ -31,8 +22,5 @@ header {
 }
 header nav a {
   @apply ms-6;
-}
-main {
-  height: calc(100vh - 64px);
 }
 </style>

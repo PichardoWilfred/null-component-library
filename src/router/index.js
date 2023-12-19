@@ -3,6 +3,7 @@ import { useAuthStore } from '@/stores/auth.js';
 
 import Home from '@/views/Home.vue'
 import Appointments from '@/views/Appointments.vue'
+import Settings from "@/views/Settings.vue"
 import Auth from '@/views/Auth.vue'
 
 import Login from '@/components/auth/Login.vue'
@@ -13,6 +14,7 @@ export const router = createRouter({
   routes: [
     { path: '/', component: Home },
     { path: '/appointments', component: Appointments },
+    { path: '/settings', component: Settings },
     { 
       path: '/auth', 
       component: Auth,

@@ -7,7 +7,7 @@
                     {{ auth.user.username }}
                 </h1>
                 <h2 >
-                    Administrador
+                    {{ auth.user.role === 1 ? 'Administrador': 'Usuario' }}
                 </h2>
             </div>
         </div>
@@ -34,9 +34,18 @@ import { router } from '@/router';
 
 import { useAuthStore } from '@/stores/auth.js';
 const auth = useAuthStore();
-const admin = computed(() => auth.user?.role === 1 );
+const admin = computed(() => auth.user?.role === 1 ); // role 1 is designated as the admin role
 
 const navigation_ = ref([
+    {   
+        show: admin,
+        icon: 'material-symbols:dashboard-outline-rounded',
+        label: 'Manejo general',
+        address: '/settings',
+        action: () => {
+            router.push('/settings');
+        }
+    },
     {   
         show: true,
         icon: 'fluent:task-list-square-16-filled',
@@ -72,14 +81,6 @@ const navigation_ = ref([
         label: 'Clientes',
         address: '/clients',
         action: () => {}
-    },
-    {   
-        show: admin,
-        icon: 'material-symbols:dashboard-outline-rounded',
-        label: 'Manejo general',
-        address: '/settings',
-        action: () => {
-        }
     },
     {
         show: true,

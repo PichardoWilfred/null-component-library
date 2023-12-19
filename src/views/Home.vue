@@ -81,9 +81,9 @@
             <p>
               Seleccione una fecha en la cual usted desee pautar su cita
             </p>
-            <div class="flex max-w-[520px] my-3">
+            <div class="relative flex max-w-[520px] my-3 pb-5">
               <div class="me-3 max-w-[180px]">
-                <h4>Fecha: </h4>
+                <h4>Fecha: <span v-if="changed_date" class="text-[12px]">(mañana)</span> </h4>
                 <VueDatePicker v-model="date" locale="es" :enable-time-picker="false" :clearable="false" 
                 :allowed-dates="available_dates" dark />
               </div>
@@ -97,10 +97,11 @@
                   </div>
                 </div>
               </div>
+              <div v-if="invalid_appointment_date" class="absolute bottom-0 left-0 text-gray-300">
+                Porfavor seleccione una fecha y hora para su cita
+              </div>
             </div>
-            <button class="btn bg-blue-100 flex" @click.prevent="parse_date">
-              Obtener valores
-            </button>
+            
             <p class="text-gray-200">
               Seleccione los servicios que necesite
             </p>
@@ -131,7 +132,8 @@
 <script setup>
 import { Icon } from '@iconify/vue';
 import { ref, watch, computed } from "vue";
-import moment from 'moment';
+
+import moment from "moment/dist/moment";
 
 import CustomModal from "../components/CustomModal.vue"
 import ServicesList from '@/components/ServicesList.vue';
@@ -150,41 +152,54 @@ const open_fast_appointment_modal = () => {
 const open_appointment_modal = () => {
   appointment_modal.value = true;
 }
+// appointment with date
+const available_dates = computed(() => {
+  const available_dates_ = [];
+  for (let i = 1; i < 90; i++) { // 3 months = 90 days (approximately)
+    const date = new Date();
+    date.setDate(date.getDate() + i);
+    available_dates_.push(date); // Push formatted date to array
+  }
+  return available_dates_;
+});
+
+//getting the default date as tomorrow
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(tomorrow.getDate() + 1);
+
+const date = ref(tomorrow);
+// changed_date to remove once we made a single change
+const changed_date = ref(true);
+watch(date, () => {
+  changed_date.value = false;
+});
+const hour = ref();
+
+const invalid_appointment_date = ref(false); //stored message
 const create_appointment = (services) => {
-  appointment_modal.value = false;
   if (date.value && hour.value) { // if we have a date and an hour set 
+    // once we validate everything we reset all the values
+    appointment_modal.value = false;
+    changed_date.value = true;
+    invalid_appointment_date.value = false;
     // Parse the string date into a Date object
     const date_ = new Date(date.value);
 
     date_.setHours(hour.value.hours);
     date_.setMinutes(hour.value.minutes);
     date_.setSeconds(hour.value.seconds);
-
+    
     const date_logger = moment(date_ , 'DD/MM/YYYY HH:mm');
     return auth.create_appointment(services, date_logger.locale('es').format('D [de] MMMM YYYY, h:mm A'), date_);
+  }else {
+    invalid_appointment_date.value = true
   }
 }
+
 const create_fast_appointment = (services) => {
   fast_appointment_modal.value = false;
   return auth.create_fast_appointment(services);
 }
 
-const message = ref(''); //stored message
-
-const date = ref(new Date());
-const available_dates = computed(() => {
-    const available_dates_ = [];
-    for (let i = 1; i < 90; i++) { // 3 months = 90 days (approximately)
-      const date = new Date();
-      date.setDate(date.getDate() + i);
-      available_dates_.push(date); // Push formatted date to array
-    }
-    return available_dates_;
-});
-
-const hour = ref();
-
-const parse_date = () => {
-  return date_; 
-}
 </script>

@@ -4,8 +4,10 @@ import { fetchWrapper } from '@/helpers';
 import { router } from '@/router';
 import { useToast } from 'vue-toast-notification';
 
-import moment from 'moment';
-import "moment/locale/es";
+
+import moment from "moment/dist/moment";
+import es from "moment/dist/locale/es";
+moment.locale("es", es);
 
 const baseUrl = `${import.meta.env.VITE_API_URL}`;
 
