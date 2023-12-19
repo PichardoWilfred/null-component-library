@@ -13,14 +13,15 @@ function request(method) {
         const requestOptions = {
             method,
             mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'text/plain',
-            },
-            body: JSON.stringify(body)
+            headers: authHeader(url)
         };
+        
+        if (body) {
+            requestOptions.headers['Content-Type'] = 'application/json';
+            requestOptions.body = JSON.stringify(body);
+        }
 
-        return fetch(url, requestOptions).then(handleResponse);
+        return fetch(url, requestOptions).then(res => res.json()).then(data => {console.log(data);});
     }
 }
 

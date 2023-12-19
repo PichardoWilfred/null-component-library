@@ -37,7 +37,7 @@
         <!-- Table Footer -->
         <div class="table-footer">
 
-            <CustomSelect v-model="rows_quantity" :options="select_options" />
+            <CustomSelect v-model="select_model" :options="select_options" />
 
             <div class="pagination-container">
                 <button class="pagination-btn" @click.prevent="set_index(0, 'substract')">
@@ -91,7 +91,87 @@ const props = defineProps({
     },
     data: {
         type: Array,
-        default: []
+        default: [
+                ["Santiago Eduardo Herrera Gómez", "Henry Reynoso", "12 de Enero", "1 hora", "B"],
+                ["María Rodríguez", "Carlos Pérez", "25 de Abril", "2 horas", "A"],
+                ["Luisa Martínez", "Juan González", "7 de Marzo", "3 horas", "C"],
+                ["Santiago Eduardo Herrera Gómez", "Henry Reynoso", "12 de Enero", "1 hora", "B"],
+                ["María Rodríguez", "Carlos Pérez", "25 de Abril", "2 horas", "A"],
+                ["Luisa Martínez", "Juan González", "7 de Marzo", "3 horas", "C"],
+                ["Ana Gutiérrez", "Pedro Sánchez", "18 de Mayo", "4 horas", "D"],
+                ["Lucía Fernández", "Andrés López", "3 de Julio", "5 horas", "E"],
+                ["Roberto Ramírez", "Elena Díaz", "30 de Septiembre", "6 horas", "F"],
+                ["Carmen Vargas", "Francisco Cruz", "9 de Agosto", "7 horas", "G"],
+                ["David Torres", "Sofía Medina", "14 de Febrero", "8 horas", "H"],
+                ["Eduardo Nuñez", "Isabel Romero", "22 de Junio", "9 horas", "I"],
+                ["Julia Herrera", "Miguel Castro", "10 de Octubre", "10 horas", "J"],
+                ["Alejandro Pérez", "Laura Gómez", "5 de Marzo", "2 horas", "A"],
+                ["Marta Fernández", "Daniel Ramírez", "20 de Julio", "3 horas", "B"],
+                ["Cristina Soto", "Javier Martínez", "10 de Abril", "4 horas", "C"],
+                ["Rosa Díaz", "Mario Rodríguez", "15 de Septiembre", "5 horas", "D"],
+                ["Luis Torres", "Ana Castillo", "27 de Noviembre", "6 horas", "E"],
+                ["Paula García", "Roberto Sánchez", "8 de Enero", "7 horas", "F"],
+                ["Sara López", "Alberto Ruiz", "12 de Mayo", "8 horas", "G"],
+                ["Eva Martín", "Gabriel Flores", "30 de Agosto", "9 horas", "H"],
+                ["Fernando González", "Carla Sosa", "22 de Febrero", "10 horas", "I"],
+                ["Diego Herrera", "Marina Nuñez", "18 de Octubre", "11 horas", "J"],
+                ["Camila García", "Erick Rodríguez", "14 de Abril", "3 horas", "B"],
+                ["Natalia Martínez", "Sebastián López", "9 de Junio", "4 horas", "C"],
+                ["Sofía Pérez", "Gabriel Ramírez", "22 de Agosto", "5 horas", "D"],
+                ["Valentina Hernández", "Adrián Fernández", "17 de Octubre", "6 horas", "E"],
+                ["Mateo Gómez", "Paulina Díaz", "30 de Diciembre", "7 horas", "F"],
+                ["Emilia Sánchez", "Lucas Martín", "25 de Enero", "8 horas", "G"],
+                ["Thiago Castillo", "Abril Torres", "5 de Marzo", "9 horas", "H"],
+                ["Julieta Ruiz", "Isaac González", "12 de Mayo", "10 horas", "I"],
+                ["Diego Herrera", "Renata Flores", "18 de Julio", "11 horas", "J"],
+                ["Mariano Castro", "Esther Nuñez", "23 de Septiembre", "12 horas", "K"],
+                ["Carmen García", "Manuel Rodríguez", "10 de Febrero", "4 horas", "B"],
+                ["Juan Martínez", "Valeria Pérez", "18 de Mayo", "5 horas", "C"],
+                ["Lucía Díaz", "Andrés Gómez", "24 de Agosto", "6 horas", "D"],
+                ["Santiago López", "Isabella Flores", "9 de Octubre", "7 horas", "E"],
+                ["Diana Sánchez", "Matías Ramírez", "15 de Diciembre", "8 horas", "F"],
+                ["Adriana Torres", "Pedro Fernández", "3 de Enero", "9 horas", "G"],
+                ["Emilio Nuñez", "Sara González", "27 de Marzo", "10 horas", "H"],
+                ["Valentina Castillo", "Javier Martín", "6 de Junio", "11 horas", "I"],
+                ["Gabriel Herrera", "Renata Ruiz", "12 de Septiembre", "12 horas", "J"],
+                ["Carolina Castro", "Alejandro Soto", "21 de Noviembre", "13 horas", "K"],
+                ["Sofía Pérez", "Gabriel Ramírez", "22 de Agosto", "5 horas", "D"],
+                ["Valentina Hernández", "Adrián Fernández", "17 de Octubre", "6 horas", "E"],
+                ["Mateo Gómez", "Paulina Díaz", "30 de Diciembre", "7 horas", "F"],
+                ["Emilia Sánchez", "Lucas Martín", "25 de Enero", "8 horas", "G"],
+                ["Thiago Castillo", "Abril Torres", "5 de Marzo", "9 horas", "H"],
+                ["Julieta Ruiz", "Isaac González", "12 de Mayo", "10 horas", "I"],
+                ["Diego Herrera", "Renata Flores", "18 de Julio", "11 horas", "J"],
+                ["Mariano Castro", "Esther Nuñez", "23 de Septiembre", "12 horas", "K"],
+                ["Carmen García", "Manuel Rodríguez", "10 de Febrero", "4 horas", "B"],
+                ["Juan Martínez", "Valeria Pérez", "18 de Mayo", "5 horas", "C"],
+                ["Lucía Díaz", "Andrés Gómez", "24 de Agosto", "6 horas", "D"],
+                ["Santiago López", "Isabella Flores", "9 de Octubre", "7 horas", "E"],
+                ["Diana Sánchez", "Matías Ramírez", "15 de Diciembre", "8 horas", "F"],
+                ["Adriana Torres", "Pedro Fernández", "3 de Enero", "9 horas", "G"],
+                ["Emilio Nuñez", "Sara González", "27 de Marzo", "10 horas", "H"],
+                ["Valentina Castillo", "Javier Martín", "6 de Junio", "11 horas", "I"],
+                ["Gabriel Herrera", "Renata Ruiz", "12 de Septiembre", "12 horas", "J"],
+                ["Carolina Castro", "Alejandro Soto", "21 de Noviembre", "13 horas", "K"],
+                ["Sofía Pérez", "Gabriel Ramírez", "22 de Agosto", "5 horas", "D"],
+                ["Valentina Hernández", "Adrián Fernández", "17 de Octubre", "6 horas", "E"],
+                ["Mateo Gómez", "Paulina Díaz", "30 de Diciembre", "7 horas", "F"],
+                ["Emilia Sánchez", "Lucas Martín", "25 de Enero", "8 horas", "G"],
+                ["Thiago Castillo", "Abril Torres", "5 de Marzo", "9 horas", "H"],
+                ["Julieta Ruiz", "Isaac González", "12 de Mayo", "10 horas", "I"],
+                ["Diego Herrera", "Renata Flores", "18 de Julio", "11 horas", "J"],
+                ["Mariano Castro", "Esther Nuñez", "23 de Septiembre", "12 horas", "K"],
+                ["Carmen García", "Manuel Rodríguez", "10 de Febrero", "4 horas", "B"],
+                ["Juan Martínez", "Valeria Pérez", "18 de Mayo", "5 horas", "C"],
+                ["Lucía Díaz", "Andrés Gómez", "24 de Agosto", "6 horas", "D"],
+                ["Santiago López", "Isabella Flores", "9 de Octubre", "7 horas", "E"],
+                ["Diana Sánchez", "Matías Ramírez", "15 de Diciembre", "8 horas", "F"],
+                ["Adriana Torres", "Pedro Fernández", "3 de Enero", "9 horas", "G"],
+                ["Emilio Nuñez", "Sara González", "27 de Marzo", "10 horas", "H"],
+                ["Valentina Castillo", "Javier Martín", "6 de Junio", "11 horas", "I"],
+                ["Gabriel Herrera", "Renata Ruiz", "12 de Septiembre", "12 horas", "J"],
+                ["Carolina Castro", "Alejandro Soto", "21 de Noviembre", "13 horas", "K"]
+        ]
     }
 });
 
@@ -113,94 +193,16 @@ const select_options = ref([
 ]);
 
 // Table data
-const results = [
-    ["Santiago Eduardo Herrera Gómez", "Henry Reynoso", "12 de Enero", "1 hora", "B"],
-    ["María Rodríguez", "Carlos Pérez", "25 de Abril", "2 horas", "A"],
-    ["Luisa Martínez", "Juan González", "7 de Marzo", "3 horas", "C"],
-    ["Santiago Eduardo Herrera Gómez", "Henry Reynoso", "12 de Enero", "1 hora", "B"],
-    ["María Rodríguez", "Carlos Pérez", "25 de Abril", "2 horas", "A"],
-    ["Luisa Martínez", "Juan González", "7 de Marzo", "3 horas", "C"],
-    ["Ana Gutiérrez", "Pedro Sánchez", "18 de Mayo", "4 horas", "D"],
-    ["Lucía Fernández", "Andrés López", "3 de Julio", "5 horas", "E"],
-    ["Roberto Ramírez", "Elena Díaz", "30 de Septiembre", "6 horas", "F"],
-    ["Carmen Vargas", "Francisco Cruz", "9 de Agosto", "7 horas", "G"],
-    ["David Torres", "Sofía Medina", "14 de Febrero", "8 horas", "H"],
-    ["Eduardo Nuñez", "Isabel Romero", "22 de Junio", "9 horas", "I"],
-    ["Julia Herrera", "Miguel Castro", "10 de Octubre", "10 horas", "J"],
-    ["Alejandro Pérez", "Laura Gómez", "5 de Marzo", "2 horas", "A"],
-    ["Marta Fernández", "Daniel Ramírez", "20 de Julio", "3 horas", "B"],
-    ["Cristina Soto", "Javier Martínez", "10 de Abril", "4 horas", "C"],
-    ["Rosa Díaz", "Mario Rodríguez", "15 de Septiembre", "5 horas", "D"],
-    ["Luis Torres", "Ana Castillo", "27 de Noviembre", "6 horas", "E"],
-    ["Paula García", "Roberto Sánchez", "8 de Enero", "7 horas", "F"],
-    ["Sara López", "Alberto Ruiz", "12 de Mayo", "8 horas", "G"],
-    ["Eva Martín", "Gabriel Flores", "30 de Agosto", "9 horas", "H"],
-    ["Fernando González", "Carla Sosa", "22 de Febrero", "10 horas", "I"],
-    ["Diego Herrera", "Marina Nuñez", "18 de Octubre", "11 horas", "J"],
-    ["Camila García", "Erick Rodríguez", "14 de Abril", "3 horas", "B"],
-    ["Natalia Martínez", "Sebastián López", "9 de Junio", "4 horas", "C"],
-    ["Sofía Pérez", "Gabriel Ramírez", "22 de Agosto", "5 horas", "D"],
-    ["Valentina Hernández", "Adrián Fernández", "17 de Octubre", "6 horas", "E"],
-    ["Mateo Gómez", "Paulina Díaz", "30 de Diciembre", "7 horas", "F"],
-    ["Emilia Sánchez", "Lucas Martín", "25 de Enero", "8 horas", "G"],
-    ["Thiago Castillo", "Abril Torres", "5 de Marzo", "9 horas", "H"],
-    ["Julieta Ruiz", "Isaac González", "12 de Mayo", "10 horas", "I"],
-    ["Diego Herrera", "Renata Flores", "18 de Julio", "11 horas", "J"],
-    ["Mariano Castro", "Esther Nuñez", "23 de Septiembre", "12 horas", "K"],
-    ["Carmen García", "Manuel Rodríguez", "10 de Febrero", "4 horas", "B"],
-    ["Juan Martínez", "Valeria Pérez", "18 de Mayo", "5 horas", "C"],
-    ["Lucía Díaz", "Andrés Gómez", "24 de Agosto", "6 horas", "D"],
-    ["Santiago López", "Isabella Flores", "9 de Octubre", "7 horas", "E"],
-    ["Diana Sánchez", "Matías Ramírez", "15 de Diciembre", "8 horas", "F"],
-    ["Adriana Torres", "Pedro Fernández", "3 de Enero", "9 horas", "G"],
-    ["Emilio Nuñez", "Sara González", "27 de Marzo", "10 horas", "H"],
-    ["Valentina Castillo", "Javier Martín", "6 de Junio", "11 horas", "I"],
-    ["Gabriel Herrera", "Renata Ruiz", "12 de Septiembre", "12 horas", "J"],
-    ["Carolina Castro", "Alejandro Soto", "21 de Noviembre", "13 horas", "K"],
-    ["Sofía Pérez", "Gabriel Ramírez", "22 de Agosto", "5 horas", "D"],
-    ["Valentina Hernández", "Adrián Fernández", "17 de Octubre", "6 horas", "E"],
-    ["Mateo Gómez", "Paulina Díaz", "30 de Diciembre", "7 horas", "F"],
-    ["Emilia Sánchez", "Lucas Martín", "25 de Enero", "8 horas", "G"],
-    ["Thiago Castillo", "Abril Torres", "5 de Marzo", "9 horas", "H"],
-    ["Julieta Ruiz", "Isaac González", "12 de Mayo", "10 horas", "I"],
-    ["Diego Herrera", "Renata Flores", "18 de Julio", "11 horas", "J"],
-    ["Mariano Castro", "Esther Nuñez", "23 de Septiembre", "12 horas", "K"],
-    ["Carmen García", "Manuel Rodríguez", "10 de Febrero", "4 horas", "B"],
-    ["Juan Martínez", "Valeria Pérez", "18 de Mayo", "5 horas", "C"],
-    ["Lucía Díaz", "Andrés Gómez", "24 de Agosto", "6 horas", "D"],
-    ["Santiago López", "Isabella Flores", "9 de Octubre", "7 horas", "E"],
-    ["Diana Sánchez", "Matías Ramírez", "15 de Diciembre", "8 horas", "F"],
-    ["Adriana Torres", "Pedro Fernández", "3 de Enero", "9 horas", "G"],
-    ["Emilio Nuñez", "Sara González", "27 de Marzo", "10 horas", "H"],
-    ["Valentina Castillo", "Javier Martín", "6 de Junio", "11 horas", "I"],
-    ["Gabriel Herrera", "Renata Ruiz", "12 de Septiembre", "12 horas", "J"],
-    ["Carolina Castro", "Alejandro Soto", "21 de Noviembre", "13 horas", "K"],
-    ["Sofía Pérez", "Gabriel Ramírez", "22 de Agosto", "5 horas", "D"],
-    ["Valentina Hernández", "Adrián Fernández", "17 de Octubre", "6 horas", "E"],
-    ["Mateo Gómez", "Paulina Díaz", "30 de Diciembre", "7 horas", "F"],
-    ["Emilia Sánchez", "Lucas Martín", "25 de Enero", "8 horas", "G"],
-    ["Thiago Castillo", "Abril Torres", "5 de Marzo", "9 horas", "H"],
-    ["Julieta Ruiz", "Isaac González", "12 de Mayo", "10 horas", "I"],
-    ["Diego Herrera", "Renata Flores", "18 de Julio", "11 horas", "J"],
-    ["Mariano Castro", "Esther Nuñez", "23 de Septiembre", "12 horas", "K"],
-    ["Carmen García", "Manuel Rodríguez", "10 de Febrero", "4 horas", "B"],
-    ["Juan Martínez", "Valeria Pérez", "18 de Mayo", "5 horas", "C"],
-    ["Lucía Díaz", "Andrés Gómez", "24 de Agosto", "6 horas", "D"],
-    ["Santiago López", "Isabella Flores", "9 de Octubre", "7 horas", "E"],
-    ["Diana Sánchez", "Matías Ramírez", "15 de Diciembre", "8 horas", "F"],
-    ["Adriana Torres", "Pedro Fernández", "3 de Enero", "9 horas", "G"],
-    ["Emilio Nuñez", "Sara González", "27 de Marzo", "10 horas", "H"],
-    ["Valentina Castillo", "Javier Martín", "6 de Junio", "11 horas", "I"],
-    ["Gabriel Herrera", "Renata Ruiz", "12 de Septiembre", "12 horas", "J"],
-    ["Carolina Castro", "Alejandro Soto", "21 de Noviembre", "13 horas", "K"],
-];
 const column_quantity = ref(props.column_headers.length);
 
 
 // row logic
+const select_model = ref({ label: '10', value: 10 });
 const rows_quantity = ref(10); // limit of rows available (also the v-model of the select-input)
-watch(rows_quantity, (value) => {
-    console.log(value);
+
+watch(select_model, (value) => {
+    row_limit.value = value.value;
+    set_rows()
 });
 const rows = ref(null); // table rows 
 const row_limit = ref(10); // amounts of allowed rows.
@@ -209,7 +211,7 @@ const set_rows = () => { // create the rows on the table
     let limit = starting + row_limit.value;
     let rows_ = [];
     for (let i = starting; i <= limit; i++) { // getting the values out of the list
-        rows_.push(results[i]);
+        rows_.push(props.data[i]);
     }
     rows.value = rows_;
 }
@@ -303,7 +305,7 @@ const set_index = ( new_index, type = 'change' ) => { // change index
 
 // pagination logic
 const set_pagination = () => {
-    last_page.value = Math.ceil(results.length / row_limit.value); // setting the amount of pages
+    last_page.value = Math.ceil(props.data.length / row_limit.value); // setting the amount of pages
     pagination.value = [];
     Array.from( Array(last_page.value).keys() ).map((_, index) => { //setting the initial value of the pagination elements
         pagination.value.push((index + 1));

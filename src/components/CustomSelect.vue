@@ -2,7 +2,7 @@
     <div class="select-container">
         <div class="select-input" @click="show_options = !show_options">
             <span>
-                {{ selected  }}
+                {{ modelValue.label }}
             </span>
             <Icon icon="material-symbols:keyboard-arrow-down-rounded" class="text-[1.2rem] text-gray-100" />
         </div>
@@ -29,7 +29,7 @@
 </style>
 <script setup>
 import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
@@ -98,10 +98,14 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue']);
 const show_options = ref(false);
 
+// watch(props.modelValue, (value) => {
+//     console.log(value);
+// });
+
 const select_option = (index) => {
-    props.selected = props.options[index];
+    // props.modelValue = ;
     show_options.value = false;
-    emit('update:modelValue', props.selected);
+    emit('update:modelValue', JSON.parse(JSON.stringify(props.options[index])));
 }
 
 const options_reference = ref(null);

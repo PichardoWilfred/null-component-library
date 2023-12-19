@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/auth.js';
+
 import Home from '@/views/Home.vue'
 import Clients from '@/views/Client.vue'
 import Auth from '@/views/Auth.vue'
@@ -29,13 +31,16 @@ export const router = createRouter({
 });
 
 router.beforeEach(async (to) => {
+  const authStore = useAuthStore();
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/auth/login'];
   const authRequired = !publicPages.includes(to.path);
-  const auth = JSON.parse(localStorage.getItem('user'));
 
-  if (authRequired && !auth.user) {
-      auth.returnUrl = to.fullPath;
-      return '/login';
+  const auth = JSON.parse(localStorage.getItem('user'));
+  if (authRequired && !auth) {
+    authStore.$patch({
+      returnUrl: to.fullPath
+    });
+    return '/auth/login';
   }
 });

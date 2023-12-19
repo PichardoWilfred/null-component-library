@@ -1,20 +1,10 @@
 <script setup>
   import { RouterLink, RouterView } from 'vue-router';
   import { ref, onMounted, watch } from "vue";
-
-  import { mapWritableState } from 'pinia'
   import { useAuthStore } from '@/stores/auth.js';
 
   import Sidebar from './components/Sidebar.vue';
   const auth = useAuthStore();
-  // const user = auth.user;
-  // watch(user, (value) => {
-  //   console.log(value);
-  // });
-  
-  onMounted(() => {
-    // console.log(user.value);
-  })
   </script>
 
 <template>
@@ -22,12 +12,12 @@
     <Sidebar v-if="auth.user" />
     <div class="grow flex flex-col transition-all">
       <header>
-        <!-- <nav>
+        <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/client">Client</RouterLink>
           <RouterLink to="/auth/login">Authentication</RouterLink>
           <RouterLink to="/admin">Admin</RouterLink>
-        </nav> -->
+        </nav>
       </header>
       <main class="grow overflow-y-scroll overflow-x-hidden">
         <RouterView />

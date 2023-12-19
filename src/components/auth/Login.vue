@@ -18,9 +18,12 @@
             <h2 class="text-blue-100 text-[14px] hover:underline cursor-pointer text-end translate-y-[-20px]">
                 ¿Olvidaste tu contraseña?
             </h2>
-            <p v-if="request_error" class="text-blue-100 text-[14px] hover:underline cursor-pointer text-start my-3">
-                Algo salió mal
+            <p v-if="request_error" class="text-blue-100 text-[14px] cursor-pointer text-start my-3">
+                Credenciales incorrectas
             </p>
+            <!-- <button class="btn bg-blue-200 hover:brightness-[95%] mb-3 w-full" :disabled="isSubmitting" @click.prevent="get_services()">
+                Get Services
+            </button> -->
             <button class="btn bg-blue-100 hover:brightness-[95%] w-full" :disabled="isSubmitting" submit>
                 Iniciar sesión
             </button>
@@ -37,11 +40,15 @@
     import CustomInput from '@/components/CustomInput.vue';
 
     import { RouterLink } from 'vue-router';
+    import { router } from '@/router';
+
     import { object, string  } from 'yup';
     import { useForm } from 'vee-validate';
     import { ref } from "vue";
 
     import { useAuthStore } from '@/stores/auth.js';
+    
+    const authStore = useAuthStore();
 
     const { errors, handleSubmit, defineField } = useForm({
         validationSchema: object({
@@ -56,19 +63,21 @@
     const request_error = ref(false);
 
     const onSubmit = handleSubmit((values) => {
-        const authStore = useAuthStore();
         const { username, password } = values;
 
-        // if (username === "1" && password === "1") {
-        //     localStorage.setItem('user', JSON.stringify({ username: '1', password: '1' }));
-        // } else {
-        //     request_error.value = true;
-        // }
+        if (username === "rdomi" && password === "1") {
+            authStore.$patch({
+                user: { username, password }
+            });
+            localStorage.setItem('user', JSON.stringify({ username, password }));
+            router.push(authStore.returnUrl || '/'); // redirect to previous url or default to home page
+        } else {    
+            request_error.value = true;
+        }
         
-        // return authStore.get_services().then((value) => {
-        //     console.log(value);
-        // }).catch(error => { console.log(error) });
-
-        return authStore.login(username, password).catch(error => {console.log(error);});;
+        // return authStore.login(username, password).catch(error => { console.log(error) });;
     }); 
+    async function get_services () {
+        return authStore.get_services();
+    }
 </script> 
