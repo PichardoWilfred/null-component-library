@@ -13,7 +13,7 @@
         <CustomInput label="Nombre de Lavador" v-model="selected_washer[1]" class="pointer-events-none max-w-[180px]" />
         <CustomInput label="Activo" v-model="selected_washer[3]" class="pointer-events-none max-w-[80px] min-w-[none]" />
 
-        <ServicesList :checked_services="washers_services" no_button button_label="Guardar Cambios" />
+        <ServicesList real_time :checked_services="washers_services" :washer_id="selected_washer[0]" no_button button_label="Guardar Cambios" />
       </div>
     </CustomModal>
 
@@ -58,21 +58,18 @@ const format_stations = (raw) => {
 }
 
 const select_washer = async (washer) => {
+  await auth.get_washers_service();
   washers_services.value = null;
   selected_washer.value = washer;
   washers_services.value = auth.washers_services.filter((element) => element.idLavadorLavser === selected_washer.value[0]);
   // washer_services
   detail_washer_modal.value = true;
 }
-// const update_services = async (services) => {
-//   console.log(services);
-//   console.log(washers_services.value);
-// }
 
 onMounted(async () => {
   await auth.get_washers();
-  await auth.get_stations();
   await auth.get_washers_service();
+  await auth.get_stations();
 
   washers.value = format_washers(auth.washers);
   stations.value = format_stations(auth.stations);

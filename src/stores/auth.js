@@ -67,6 +67,16 @@ export const useAuthStore = defineStore({
                 console.log(error);
             }
         },  
+        async update_washer_services(lavador, servicio, to_add) {
+            if (to_add) {
+                const response = await fetchWrapper.post(`${baseUrl}Lavador/conectarServicio`, { 
+                    idLavadorLavser: lavador, 
+                    idServicioLavser: servicio
+                });
+            }else {
+                const response = await fetchWrapper.delete(`${baseUrl}Lavador/${lavador}/${servicio}`);
+            }
+        },
         async get_stations() {
             try {
                 const stations = await fetchWrapper.get(`${baseUrl}Estacion`);

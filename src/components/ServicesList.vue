@@ -57,6 +57,12 @@ const props = defineProps({
     },
     no_button: {
         type: Boolean
+    },
+    washer_id: {
+        type: String
+    },
+    real_time: {
+        type: Boolean
     }
 })
 
@@ -67,8 +73,11 @@ const emit = defineEmits('services');
 const services = ref(null);
 const error_ = ref(false);
 
-const add_to_list = (index) => {
-    services.value[index].checked = !services.value[index].checked
+const add_to_list = async (index) => {
+    services.value[index].checked = !services.value[index].checked;
+    if (props.real_time) {
+        await auth.update_washer_services(props.washer_id, services.value[index].idServicioSer, services.value[index].checked)
+    }
 };  
 const send_appointment = () => {
     const services_required = services.value.filter((service) => service.checked);
@@ -80,13 +89,13 @@ const send_appointment = () => {
     }
 } 
 onMounted(async () => {
-    if (!auth.services) {
+    if (!auth.services || props.real_time) {
+        auth.services = null;
         await auth.get_services();
     }
     services.value = JSON.parse(JSON.stringify(auth.services)); 
-    if (props.checked_services.length) {
-        // console.log(props.checked_services); // idServicioLavser
-        const indexes_to_check = props.checked_services.map((el)=> el.idServicioLavser);
+    if (props.real_time) {
+        const indexes_to_check = props.checked_services.map((el) => el.idServicioLavser);
         services.value.map((service) => {
             if ( indexes_to_check.includes(service.idServicioSer) ) service.checked = true;;
         });
