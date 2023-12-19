@@ -64,18 +64,24 @@
             Haz que tu vehículo luzca impecable otra vez. ¡Programa una cita para un lavado de calidad y devuélvele su brillo original!
         </p>
         <div class="buttons-showcase">
-            <button class="btn bg-blue-100" @clikc.prevent="create_appointment('fast')">
+            <button class="btn bg-blue-100" @click.prevent="create_appointment('fast')">
                 <Icon icon="gravity-ui:thunderbolt" class="me-3 text-[1.3rem]" />
                 Crear cita rápida
             </button>
             <span class="text-gray-200 font-medium">
                 ó
             </span>
-            <button class="btn bg-blue-400" @clikc.prevent="create_appointment('regular')">
+            <button class="btn bg-blue-400" @click.prevent="create_appointment('regular')">
                 <Icon icon="fe:calendar" class="me-3 text-[1.3rem]" />
                 Programar cita
             </button>
         </div>
+        <CustomModal v-if="fast_appointment_modal" title="Crear cita rápida" @closeModal="() => {fast_appointment_modal = false}">
+            <div>
+                <ServicesList />
+            </div>
+        </CustomModal>
+
     </div>
 </template>
 <style scoped>
@@ -89,7 +95,17 @@
 </style>
 <script setup>
 import { Icon } from '@iconify/vue';
-// const create_appointment = () => {
-//     console.log("create fast appointment");
-// }
+import { ref } from "vue";
+
+import CustomModal from "../components/CustomModal.vue"
+import CustomInput from '@/components/CustomInput.vue';
+import ServicesList from '@/components/ServicesList.vue';
+
+const fast_appointment_modal = ref(false);
+const appointment_modal = ref(false);
+
+const create_appointment = () => {
+    fast_appointment_modal.value = true;
+    // console.log("create fast appointment");
+}
 </script>

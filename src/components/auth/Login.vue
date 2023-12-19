@@ -65,17 +65,24 @@
     const onSubmit = handleSubmit((values) => {
         const { username, password } = values;
 
-        if (username === "rdomi" && password === "1") {
-            authStore.$patch({
-                user: { username, password }
-            });
-            localStorage.setItem('user', JSON.stringify({ username, password }));
-            router.push(authStore.returnUrl || '/'); // redirect to previous url or default to home page
-        } else {    
-            request_error.value = true;
-        }
+        // if (username === "rdomi" && password === "1") {
+        //     authStore.$patch({
+        //         user: { username, password }
+        //     });
+        //     localStorage.setItem('user', JSON.stringify({ username, password, role: 1 }));
+        //     router.push(authStore.returnUrl || '/'); // redirect to previous url or default to home page
+        // } else if (username === "admin" && password === "1") {
+        //     authStore.$patch({
+        //         user: { username, password }
+        //     });
+        //     localStorage.setItem('user', JSON.stringify({ username, password, role: 2 }));
+        //     router.push(authStore.returnUrl || '/client'); // redirect to previous url or default to home page
+        // }
+        // else {    
+        //     request_error.value = true;
+        // }
         
-        // return authStore.login(username, password).catch(error => { console.log(error) });;
+        return authStore.login(username, password).catch(error => { console.log(error) });;
     }); 
     async function get_services () {
         return authStore.get_services();

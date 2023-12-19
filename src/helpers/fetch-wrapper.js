@@ -12,7 +12,6 @@ function request(method) {
     return (url, body) => {
         const requestOptions = {
             method,
-            mode: 'no-cors',
             headers: authHeader(url)
         };
         
@@ -20,7 +19,6 @@ function request(method) {
             requestOptions.headers['Content-Type'] = 'application/json';
             requestOptions.body = JSON.stringify(body);
         }
-
         return fetch(url, requestOptions).then(res => res.json()).then(data => {console.log(data);});
     }
 }

@@ -86,6 +86,6 @@ const data = ref([
 
 <template>
   <div class="m-5">
-    <CustomTable :column_headers="['Cliente','Lavador','Fecha','Duración','Estación']" :data="data" />
+    <!-- <CustomTable table_title="Listado de Citas" :column_headers="['Cliente','Lavador','Fecha','Duración','Estación']" :data="data" /> -->
   </div>
 </template>
