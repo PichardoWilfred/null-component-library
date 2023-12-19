@@ -2,39 +2,62 @@ import { defineStore } from 'pinia';
 
 import { fetchWrapper } from '@/helpers';
 import { router } from '@/router';
+import { useToast } from 'vue-toast-notification';
+
+import moment from 'moment';
+import "moment/locale/es";
 
 const baseUrl = `${import.meta.env.VITE_API_URL}`;
 
+const $toast = useToast();
+
+const getUser = () => {
+    try {
+        return JSON.parse(localStorage.getItem('user'))
+    } catch (error) {
+        return JSON.parse(JSON.stringify({ username: 'unlogged', role: 0 }));
+    }
+}
 export const useAuthStore = defineStore({
     id: 'auth',
     state: () => ({
-        // initialize state from local storage to enable user to stay logged in
-        user: JSON.parse(localStorage.getItem('user')),
+        user: getUser(),  // initialize state from local storage to enable user to stay logged in
         services: null,
-        returnUrl: null
+        returnUrl: null,
+        appointments: null,
     }),
     actions: {
         async login(username, password) {
-            const user = await fetchWrapper.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });
-            this.user = user; // update pinia state
+            const role = await fetchWrapper.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });
+            this.user = { username, role }; // update pinia state
             // store user details and jwt in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
-
+            localStorage.setItem('user', JSON.stringify(this.user));
             // redirect to previous url or default to home page
-            router.push(this.returnUrl || '/');
+            router.replace('/');
+            console.log('navigating');
+        },
+        async create_fast_appointment(services) {
+            const response = await fetchWrapper.post(`${baseUrl}Agenda/Rapida`, { idParametroNumerico: this.user.role, parametroNvarchar: services.toString() });
+            const format_date = (fechaString) => {
+                const date = moment(fechaString, 'DD/MM/YYYY HH:mm');
+                return date.locale('es').format('D [de] MMMM YYYY, h:mm A');
+            }
+            const extracted_date = response.match(/\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}/)[0];
+            const date_formatted = format_date(extracted_date);
+
+            let instance = $toast.success(`Cita pautada para ${date_formatted}`);
         },
         async get_services() {
             try {
-                const user = await fetchWrapper.get(`${baseUrl}Servicios`);
+                const services = await fetchWrapper.get(`${baseUrl}Servicios`);
+                this.services = services;
             } catch (error) {
                 console.log(error);
             }
         },  
-        async create_fast_appointment(type, data) {
-            await fetchWrapper.post(`${baseUrl}Agenda/Rapida`, { idParametroNumerico: 1, parametroNvarchar: "3,2,1" });
-            console.log(user);
-            // update pinia state
-            this.user = user;
+        async get_citas() {
+            const appointments = await fetchWrapper.get(`${baseUrl}Cita`);
+            this.appointments = appointments.filter((appointment) => appointment.idUsuarioCit === this.user.role);
         },
         logout() {
             this.user = null;

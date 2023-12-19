@@ -14,7 +14,7 @@
       <header>
         <nav>
           <RouterLink to="/">Home</RouterLink>
-          <RouterLink to="/client">Client</RouterLink>
+          <RouterLink to="/appointments">Citas</RouterLink>
           <RouterLink to="/auth/login">Authentication</RouterLink>
           <RouterLink to="/admin">Admin</RouterLink>
         </nav>

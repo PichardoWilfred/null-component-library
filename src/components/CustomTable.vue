@@ -1,11 +1,4 @@
 <template>
-    <!-- <table-lite
-        :is-loading="table.isLoading"
-        :columns="table.columns"
-        :rows="table.rows"
-        :total="table.totalRecordCount"
-        :sortable="table.sortable">
-    </table-lite> -->
     <div class="table-container">
         <div class="table-header">
             <h2 class="list-title">

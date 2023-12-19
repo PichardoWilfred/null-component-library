@@ -1,6 +1,6 @@
 <template>
     <div class="modal-container">
-        <div class="mask"></div>
+        <div class="mask"  @click="closeModal"></div>
         <div class="modal">
             <div class="modal-header">
                 <h3>

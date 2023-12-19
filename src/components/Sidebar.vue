@@ -4,7 +4,7 @@
             <div class="bg-gray-400 rounded-full h-[52px] w-[52px]" />
             <div class="font-poppins text-gray-100  ms-[18px] flex-1">
                 <h1 class="font-bold text-[1.2rem] leading-5 pt-3">
-                    John Doe
+                    {{ auth.user.username }}
                 </h1>
                 <h2 >
                     Administrador
@@ -12,9 +12,8 @@
             </div>
         </div>
         <ul class="grow flex flex-col text-white font-poppins min-w-[240px]">
-            <!-- :to="address" -->
-            <li v-for="({ icon, label, address, action },index) in navigation_" :key="index"
-            @click.prevent="action"
+            <li v-for="({ only_admin, icon, label, show, action },index) in navigation_" :key="index"
+            v-show="show" @click.prevent="action"
             class="flex items-center cursor-pointer text-gray-200 last:mb-0 py-[18px] px-4 last:mt-auto hover:text-white hover:bg-gray-400 transition-all">
                 <Icon :icon="icon" class="mx-[10px] text-[1.8rem]"/>
                 <span class="ms-[19px]">
@@ -30,47 +29,60 @@
 </style>
 <script setup>
 import { Icon } from '@iconify/vue';
-import { ref } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { router } from '@/router';
 
 import { useAuthStore } from '@/stores/auth.js';
 const auth = useAuthStore();
+const admin = computed(() => auth.user?.role === 1 );
 
 const navigation_ = ref([
-    {
+    {   
+        show: true,
         icon: 'fluent:task-list-square-16-filled',
         label: 'Historial de Citas',
         address: '/',
         action: () => {
-
+            router.push('/past-appointments');
         }
     },
-    {
+    {   
+        show: true,
         icon: 'fluent:task-list-24-regular',
         label: 'Citas Activas',
         address: '/login',
         action: () => {
+            router.push('/appointments');
+        }
 
+    },
+    {   
+        show: true,
+        icon: 'ri:task-line',
+        label: 'Nueva Cita',
+        address: '/',
+        action: () => {
+            router.push('/');
         }
 
     },
     {
+        show: admin,
         icon: 'ri:user-line',
         label: 'Clientes',
-        address: '/admin',
-        action: () => {
-
-        }
+        address: '/clients',
+        action: () => {}
     },
-    {
+    {   
+        show: admin,
         icon: 'material-symbols:dashboard-outline-rounded',
         label: 'Manejo general',
         address: '/settings',
         action: () => {
-            // router.push('/auth/login');
         }
     },
     {
+        show: true,
         icon: 'mynaui:logout',
         label: 'Cerrar Sesión',
         address: '/settings',
@@ -79,6 +91,7 @@ const navigation_ = ref([
         }
     }
 ])
-// const logout = () => {
-// }
+// onMounted(() => {
+
+// });
 </script>
