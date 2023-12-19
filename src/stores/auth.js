@@ -29,6 +29,7 @@ export const useAuthStore = defineStore({
         stations: null, // estaciones
         appointments: null, // citas
         washers: null, // lavadores
+        washers_services: null
     }),
     actions: {
         async create_fast_appointment(services) {
@@ -48,8 +49,7 @@ export const useAuthStore = defineStore({
                 parametroNvarchar: services.toString(),
                 parametroDatetime: date,
             });
-
-            let instance = $toast.default(`Cita pautada para ${message}`);
+            $toast.default(`Cita pautada para ${message}`);
         },
         async get_services() {
             try {
@@ -78,6 +78,10 @@ export const useAuthStore = defineStore({
         async get_citas() {
             const appointments = await fetchWrapper.get(`${baseUrl}Cita`);
             this.appointments = appointments.filter((appointment) => appointment.idUsuarioCit === this.user.role);
+        }, 
+        async get_washers_service() {
+            const washers_services = await fetchWrapper.get(`${baseUrl}Lavador/listaLavadorServicio`);
+            this.washers_services = washers_services;
         },
         async login(username, password) {
             const role = await fetchWrapper.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });

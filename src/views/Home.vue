@@ -86,7 +86,7 @@
                 <h4>Fecha: <span v-if="changed_date" class="text-[12px]">(mañana)</span> </h4>
                 <VueDatePicker v-model="date" locale="es" :enable-time-picker="false" :clearable="false" 
                 :allowed-dates="available_dates" dark />
-              </div>
+            </div>
               <div class="max-w-[140px]">
                 <h4>Hora: </h4>
                 <div class="relative">  
@@ -105,7 +105,7 @@
             <p class="text-gray-200">
               Seleccione los servicios que necesite
             </p>
-            <ServicesList @services="create_appointment" />
+            <ServicesList @services="create_appointment" button_label="Crear Cita" />
           </div>
       </CustomModal>
       <CustomModal v-if="fast_appointment_modal" title="Crear cita rápida" @closeModal="() => { fast_appointment_modal = false }">
@@ -114,7 +114,7 @@
             Una vez haya seleccionado los servicios que desee, se le asignará una cita con una 
             <b>fecha predeterminada</b> por el sistema.
           </p>
-          <ServicesList @services="create_fast_appointment" />
+          <ServicesList @services="create_fast_appointment" button_label="Crear Cita" />
         </div>
       </CustomModal>
 

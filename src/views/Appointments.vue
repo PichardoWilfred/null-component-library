@@ -2,10 +2,8 @@
 <template>
     <div>
         <div v-if="appointments" class="mt-20">
-            <CustomTable @selected_row="(element) => { console.log(element) }" 
-                table_title="Citas activas" 
-                :column_headers="['ID', 'Lavador', 'Fecha Inicio', 'Fecha de Finalizar', 'Duración']" 
-                :data="appointments"/>
+            <CustomTable table_title="Citas activas" :column_headers="['ID', 'Lavador', 'Fecha Inicio', 'Fecha de Finalizar', 'Duración']" 
+                :data="appointments" @selected_row="(element) => { console.log(element) }" />
         </div>
     </div>
 </template>
@@ -24,7 +22,6 @@ const format_data = (raw) => {
         const format_date = (date) => {
             return moment(date, 'YYYY-MM-DDTHH:mm:ss.SS').locale('es').format('D [de] MMMM YYYY, h:mm A')
         }
-
         return Object.values({ idCitaCit, idLavadorCit, fechaCit: format_date(fechaCit), fechaFinCit: format_date(fechaFinCit), duracionCit })
     });
     return appointments_;

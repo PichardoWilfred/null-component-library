@@ -75,13 +75,13 @@ const navigation_ = ref([
         }
 
     },
-    {
-        show: admin,
-        icon: 'ri:user-line',
-        label: 'Clientes',
-        address: '/clients',
-        action: () => {}
-    },
+    // {
+    //     show: admin,
+    //     icon: 'ri:user-line',
+    //     label: 'Clientes',
+    //     address: '/clients',
+    //     action: () => {}
+    // },
     {
         show: true,
         icon: 'mynaui:logout',

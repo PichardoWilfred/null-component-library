@@ -18,9 +18,9 @@
             </span>
         </div>
         
-        <button class="btn flex bg-blue-100 ms-auto mt-4" @click.prevent="send_appointment()">
+        <button v-if="!no_button" class="btn flex bg-blue-100 ms-auto mt-4" @click.prevent="send_appointment()">
             <Icon icon="mingcute:save-2-line" class="me-3 text-[1.3rem] text-white" />
-            Crear cita
+            {{ button_label }}
         </button>
 
     </div>
@@ -43,9 +43,22 @@
     }
 </style>
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import { Icon } from '@iconify/vue';
 import { useAuthStore } from '@/stores/auth.js';
+
+const props = defineProps({
+    checked_services: {
+        type: Object,
+        default: []
+    },
+    button_label: {
+        type: String,
+    },
+    no_button: {
+        type: Boolean
+    }
+})
 
 const auth = useAuthStore();
 
@@ -70,6 +83,13 @@ onMounted(async () => {
     if (!auth.services) {
         await auth.get_services();
     }
-    services.value = auth.services; 
-})
+    services.value = JSON.parse(JSON.stringify(auth.services)); 
+    if (props.checked_services.length) {
+        // console.log(props.checked_services); // idServicioLavser
+        const indexes_to_check = props.checked_services.map((el)=> el.idServicioLavser);
+        services.value.map((service) => {
+            if ( indexes_to_check.includes(service.idServicioSer) ) service.checked = true;;
+        });
+    }
+});
 </script>
