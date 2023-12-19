@@ -14,15 +14,17 @@
         <div class="table-body"> <!-- Table Content -->
             <!-- Column Titles -->
             <div class="table-heading"> 
-                <div v-for="(column, index) in column_headers" class="column-header" :key="index">
+                <div v-for="(column, index) in column_headers" class="column-header" :key="index" 
+                :class="{'first-column-header': index === 0}">
                     <span>
                         {{ column }}
                     </span>
                 </div>
             </div>
             <!-- Rows -->
-            <div class="table-row" v-for="(row, index) in rows" :key="index">
-                <div class="cell truncate" v-for="(cell, index_) in row" :key="index_" :title="cell">
+            <div class="table-row" v-for="(row, index) in rows" :key="index" @click="$emit('selected_row', rows[index])">
+                <div class="cell truncate" v-for="(cell, index_) in row" :key="index_" :title="cell" 
+                :class="{'first-column-content': index_ === 0}">
                     {{ cell }}
                 </div>
             </div>
@@ -351,7 +353,7 @@ onMounted(() => {
     .table-container .table-body .table-heading {
         @apply flex flex-col border-b border-b-gray-400;
         display: grid;
-        grid-template-columns: repeat(v-bind(column_quantity), 1fr);
+        grid-template-columns: 60px repeat(v-bind(column_quantity - 1), 1fr);
     }
     .table-container .table-body .table-heading .column-header {
         @apply flex p-3;
@@ -359,13 +361,19 @@ onMounted(() => {
     .table-container .table-body .table-row {
         @apply cursor-pointer transition-all border-b border-b-gray-400 last:border-b-[0];
         display: grid;
-        grid-template-columns: repeat(v-bind(column_quantity), 1fr);
+        grid-template-columns: 60px repeat(v-bind(column_quantity - 1), 1fr);
     }
     .table-container .table-body .table-row .cell {
         @apply py-4 px-3 text-gray-200;
     }
     .table-container .table-body .table-row .cell .content {
         @apply flex text-ellipsis truncate max-w-max;
+    }
+    .first-column-header {
+        @apply justify-center;
+    }
+    .first-column-content {
+        @apply text-center border-r border-gray-400;
     }
     .table-container .table-body .table-row:hover {
         @apply bg-gray-400;

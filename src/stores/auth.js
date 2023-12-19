@@ -24,19 +24,13 @@ export const useAuthStore = defineStore({
     id: 'auth',
     state: () => ({
         user: getUser(),  // initialize state from local storage to enable user to stay logged in
-        services: null,
+        services: null, // servicios
         returnUrl: null,
-        appointments: null,
+        stations: null, // estaciones
+        appointments: null, // citas
+        washers: null, // lavadores
     }),
     actions: {
-        async login(username, password) {
-            const role = await fetchWrapper.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });
-            this.user = { username, role }; // update pinia state
-            // store user details and jwt in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(this.user));
-            // redirect to previous url or default to home page
-            router.replace('/');
-        },
         async create_fast_appointment(services) {
             const response = await fetchWrapper.post(`${baseUrl}Agenda/Rapida`, { idParametroNumerico: this.user.role, parametroNvarchar: services.toString() });
             const format_date = (fechaString) => {
@@ -64,10 +58,34 @@ export const useAuthStore = defineStore({
             } catch (error) {
                 console.log(error);
             }
+        },
+        async get_washers() {
+            try {
+                const washers = await fetchWrapper.get(`${baseUrl}Lavador`);
+                this.washers = washers;
+            } catch (error) {
+                console.log(error);
+            }
         },  
+        async get_stations() {
+            try {
+                const stations = await fetchWrapper.get(`${baseUrl}Estacion`);
+                this.stations = stations;
+            } catch (error) {
+                console.log(error);
+            }
+        }, 
         async get_citas() {
             const appointments = await fetchWrapper.get(`${baseUrl}Cita`);
             this.appointments = appointments.filter((appointment) => appointment.idUsuarioCit === this.user.role);
+        },
+        async login(username, password) {
+            const role = await fetchWrapper.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });
+            this.user = { username, role }; // update pinia state
+            // store user details and jwt in local storage to keep user logged in between page refreshes
+            localStorage.setItem('user', JSON.stringify(this.user));
+            // redirect to previous url or default to home page
+            router.replace('/');
         },
         logout() {
             this.user = null;

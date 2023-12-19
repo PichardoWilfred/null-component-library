@@ -12,7 +12,7 @@
             </div>
         </div>
         <ul class="grow flex flex-col text-white font-poppins min-w-[240px]">
-            <li v-for="({ only_admin, icon, label, show, action },index) in navigation_" :key="index"
+            <li v-for="({ icon, label, show, action },index) in navigation_" :key="index"
             v-show="show" @click.prevent="action"
             class="flex items-center cursor-pointer text-gray-200 last:mb-0 py-[18px] px-4 last:mt-auto hover:text-white hover:bg-gray-400 transition-all">
                 <Icon :icon="icon" class="mx-[10px] text-[1.8rem]"/>
