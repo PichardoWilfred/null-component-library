@@ -36,7 +36,7 @@ export const useAuthStore = defineStore({
     actions: {
         async cancel_appointment(id_cita) {
             try {
-                const response = await fetchWrapper.post(`${baseUrl}Cita/Eliminar`, { 
+                const response = await fetchWrapper.post(`${baseUrl}/Cita/Eliminar`, { 
                     idCita: id_cita, 
                 });
                 $toast.default(`La cita fue eliminada`);
@@ -46,7 +46,10 @@ export const useAuthStore = defineStore({
         },
         async create_fast_appointment(services) {
             try {
-                const response = await fetchWrapper.post(`${baseUrl}Agenda/Rapida`, { idParametroNumerico: this.user.role, parametroNvarchar: services.toString() });
+                const response = await fetchWrapper.post(`${baseUrl}/Agenda/Rapida`, { 
+                    idParametroNumerico: this.user.role, 
+                    parametroNvarchar: services.toString() 
+                });
                 const format_date = (fechaString) => {
                     const date = moment(fechaString, 'DD/MM/YYYY HH:mm');
                     return date.locale('es').format('D [de] MMMM YYYY, h:mm A');
@@ -61,7 +64,7 @@ export const useAuthStore = defineStore({
         },
         async create_appointment(services, message, date) {
             try {
-                const response = await fetchWrapper.post(`${baseUrl}Agenda/Agenda`, { 
+                const response = await fetchWrapper.post(`${baseUrl}/Agenda/Agenda`, { 
                     idParametroNumerico: this.user.role, 
                     parametroNvarchar: services.toString(),
                     parametroDatetime: date,
@@ -73,7 +76,7 @@ export const useAuthStore = defineStore({
         },
         async get_services() {
             try {
-                const services = await fetchWrapper.get(`${baseUrl}Servicios`);
+                const services = await fetchWrapper.get(`${baseUrl}/Servicios`);
                 this.services = services;
             } catch (error) {
                 console.log(error);
@@ -81,7 +84,7 @@ export const useAuthStore = defineStore({
         },
         async get_washers() {
             try {
-                const washers = await fetchWrapper.get(`${baseUrl}Lavador`);
+                const washers = await fetchWrapper.get(`${baseUrl}/Lavador`);
                 this.washers = washers;
             } catch (error) {
                 console.log(error);
@@ -90,12 +93,12 @@ export const useAuthStore = defineStore({
         async update_washer_services(washer, service, to_add) {
             try {
                 if (to_add) {
-                    const response = await fetchWrapper.post(`${baseUrl}Lavador/conectarServicio`, { 
+                    const response = await fetchWrapper.post(`${baseUrl}/Lavador/conectarServicio`, { 
                         idLavadorLavser: washer, 
                         idServicioLavser: service
                     });
                 }else {
-                    const response = await fetchWrapper.delete(`${baseUrl}Lavador/${washer}/${service}`);
+                    const response = await fetchWrapper.delete(`${baseUrl}/Lavador/${washer}/${service}`);
                 }
             } catch (error) {
                 console.log(error);
@@ -104,12 +107,12 @@ export const useAuthStore = defineStore({
         async update_station_services(station, service, to_add) {
             try {
                 if (to_add) {
-                    const response = await fetchWrapper.post(`${baseUrl}Estacion/conectarServicio`, { 
+                    const response = await fetchWrapper.post(`${baseUrl}/Estacion/conectarServicio`, { 
                         idEstacionEstser: station, 
                         idServicioEstser: service
                     });
                 }else {
-                    const response = await fetchWrapper.delete(`${baseUrl}Estacion/${station}/${service}`);
+                    const response = await fetchWrapper.delete(`${baseUrl}/Estacion/${station}/${service}`);
                 }
             } catch (error) {
                 console.log(error);
@@ -117,7 +120,7 @@ export const useAuthStore = defineStore({
         },
         async get_stations() {
             try {
-                const stations = await fetchWrapper.get(`${baseUrl}Estacion`);
+                const stations = await fetchWrapper.get(`${baseUrl}/Estacion`);
                 this.stations = stations;
             } catch (error) {
                 console.log(error);
@@ -125,7 +128,7 @@ export const useAuthStore = defineStore({
         },
         async get_stations_service() {
             try {
-                const stations_services = await fetchWrapper.get(`${baseUrl}Estacion/listaEstacionServicio`);
+                const stations_services = await fetchWrapper.get(`${baseUrl}/Estacion/listaEstacionServicio`);
                 this.stations_services = stations_services;
             } catch (error) {
                 console.log(error);
@@ -133,7 +136,7 @@ export const useAuthStore = defineStore({
         },
         async get_citas() {
             try {
-                const appointments = await fetchWrapper.get(`${baseUrl}Cita`);
+                const appointments = await fetchWrapper.get(`${baseUrl}/Cita`);
                 this.appointments = appointments.filter((appointment) => appointment.idUsuarioCit === this.user.role);
             } catch (error) {
                 console.log(error);
@@ -141,7 +144,7 @@ export const useAuthStore = defineStore({
         }, 
         async get_washers_service() {
             try {
-                const washers_services = await fetchWrapper.get(`${baseUrl}Lavador/listaLavadorServicio`);
+                const washers_services = await fetchWrapper.get(`${baseUrl}/Lavador/listaLavadorServicio`);
                 this.washers_services = washers_services;
             } catch (error) {
                 console.log(error);
@@ -149,7 +152,7 @@ export const useAuthStore = defineStore({
         },
         async login(username, password) {
             try {
-                const role = await fetchWrapper.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });
+                const role = await fetchWrapper.post(`${baseUrl}/Session/IniciarSesion`, { userP: username, passP: password });
                 this.user = { username, role }; // update pinia state
                 // store user details and jwt in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(this.user));
