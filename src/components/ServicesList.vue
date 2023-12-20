@@ -22,7 +22,6 @@
             <Icon icon="mingcute:save-2-line" class="me-3 text-[1.3rem] text-white" />
             {{ button_label }}
         </button>
-
     </div>
 </template>
 <style scoped>

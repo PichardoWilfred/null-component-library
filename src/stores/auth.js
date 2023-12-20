@@ -33,6 +33,12 @@ export const useAuthStore = defineStore({
         washers_services: null
     }),
     actions: {
+        async cancel_appointment(id_cita) {
+            const response = await fetchWrapper.post(`${baseUrl}Cita/Eliminar`, { 
+                idCita: id_cita, 
+            });
+            $toast.default(`La cita fue eliminada`);
+        },
         async create_fast_appointment(services) {
             const response = await fetchWrapper.post(`${baseUrl}Agenda/Rapida`, { idParametroNumerico: this.user.role, parametroNvarchar: services.toString() });
             const format_date = (fechaString) => {
