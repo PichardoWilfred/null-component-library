@@ -73,13 +73,11 @@ const open_appointment_modal = (value) => {
 const cancel_appointment = async () => {
     await auth.cancel_appointment(selected_appointment.value[0]);
     modal_appointment_detail.value = false;
-    
 }
 
 onMounted(async () => {
     await auth.get_citas();
     appointments.value = format_data(auth.appointments);
-    
 });
 
 

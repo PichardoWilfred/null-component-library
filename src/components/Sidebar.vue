@@ -46,15 +46,15 @@ const navigation_ = ref([
             router.push('/settings');
         }
     },
-    {   
-        show: true,
-        icon: 'fluent:task-list-square-16-filled',
-        label: 'Historial de Citas',
-        address: '/',
-        action: () => {
-            router.push('/past-appointments');
-        }
-    },
+    // {   
+    //     show: true,
+    //     icon: 'fluent:task-list-square-16-filled',
+    //     label: 'Historial de Citas',
+    //     address: '/',
+    //     action: () => {
+    //         router.push('/past-appointments');
+    //     }
+    // },
     {   
         show: true,
         icon: 'fluent:task-list-24-regular',

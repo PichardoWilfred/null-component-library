@@ -115,12 +115,16 @@ export const useAuthStore = defineStore({
             this.washers_services = washers_services;
         },
         async login(username, password) {
-            const role = await fetchWrapper.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });
-            this.user = { username, role }; // update pinia state
-            // store user details and jwt in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(this.user));
-            // redirect to previous url or default to home page
-            router.replace('/');
+            try {
+                const role = await fetchWrapper.post(`${baseUrl}Session/IniciarSesion`, { userP: username, passP: password });
+                this.user = { username, role }; // update pinia state
+                // store user details and jwt in local storage to keep user logged in between page refreshes
+                localStorage.setItem('user', JSON.stringify(this.user));
+                // redirect to previous url or default to home page
+                router.replace('/');
+            } catch(err) {
+                console.log(err);
+            }
         },
         logout() {
             this.user = null;
