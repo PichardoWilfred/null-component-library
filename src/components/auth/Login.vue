@@ -15,12 +15,16 @@
             <CustomInput theme="light" label="Contraseña" type="password" 
             v-model="password" v-bind="passwordAttrs" :error="errors.password" />
 
-            <h2 class="text-blue-100 text-[14px] hover:underline cursor-pointer text-end translate-y-[-20px]">
-                ¿Olvidaste tu contraseña?
-            </h2>
-            <p v-if="request_error" class="text-blue-100 text-[14px] cursor-pointer text-start my-3">
-                Credenciales incorrectas
-            </p>
+            <div class="down-part relative w-full">
+                <h2 class="text-blue-100 text-[14px] hover:underline cursor-pointer text-end translate-y-[-20px]">
+                    ¿Olvidaste tu contraseña?
+                </h2>
+                <p v-if="authStore.request_error" 
+                class="absolute top-[-19px] left-[0px] text-blue-300 text-[14px] cursor-pointer text-start my-3">
+                    Credenciales incorrectas
+                </p>
+
+            </div>
             <!-- <button class="btn bg-blue-200 hover:brightness-[95%] mb-3 w-full" :disabled="isSubmitting" @click.prevent="get_services()">
                 Get Services
             </button> -->
@@ -60,7 +64,7 @@
     const [username, usernameAttrs] = defineField('username');
     const [password, passwordAttrs] = defineField('password');
 
-    const request_error = ref(false);
+    // const request_error = ref(false);
 
     const onSubmit = handleSubmit((values) => {
         const { username, password } = values;
@@ -82,9 +86,6 @@
         //     request_error.value = true;
         // }
         
-        return authStore.login(username, password).catch(error => { console.log(error) });;
-    }); 
-    async function get_services () {
-        return authStore.get_services();
-    }
+        return authStore.login(username, password);
+    });
 </script> 
