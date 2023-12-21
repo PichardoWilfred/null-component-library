@@ -40,10 +40,6 @@ router.beforeEach(async (to) => {
   const authRequired = !publicPages.includes( to.path );
   const auth_valid = authStore.user?.role !== 0;
   
-  // if (!authStore.user) {
-  //   localStorage.setItem('user', JSON.stringify({username: '', role: 0, }));
-  // }
-
   if (authRequired && !authStore?.user) {
     authStore.$patch({ returnUrl: to.fullPath });
     return '/auth/login';

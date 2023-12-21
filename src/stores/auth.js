@@ -136,8 +136,8 @@ export const useAuthStore = defineStore({
         },
         async get_citas() {
             try {
-                const appointments = await fetchWrapper.get(`${baseUrl}/Cita`);
-                this.appointments = appointments.filter((appointment) => appointment.idUsuarioCit === this.user.role);
+                const appointments = await fetchWrapper.get(`${baseUrl}/Cita/Info/${this.user.role}`);
+                this.appointments = appointments;
             } catch (error) {
                 console.log(error);
             }

@@ -2,7 +2,8 @@
 <template>
     <div>
         <div v-if="appointments" class="mt-20">
-            <CustomTable table_title="Citas activas" :column_headers="['ID', 'Lavador', 'Fecha Inicio', 'Fecha de Finalizar', 'Duración']" 
+            <CustomTable table_title="Citas activas" 
+            :column_headers="['ID', 'Lavador', 'Estación', 'Fecha Inicio', 'Fecha de Finalizar', 'Duración']" 
                 :data="appointments" @selected_row="open_appointment_modal" />
         </div>
         <CustomModal v-if="modal_appointment_detail" title="Detalle de Cita" @closeModal="() => { modal_appointment_detail = false }">
@@ -10,7 +11,8 @@
                 <!-- {{ selected_appointment }} -->
                 <div class="pointer-events-none mb-8">
                     <CustomInput v-model="selected_appointment[0]" label="ID" />
-                    <CustomInput v-model="selected_appointment[1]" label="ID Lavador" />
+                    <CustomInput v-model="selected_appointment[1]" label="Lavador" />
+                    <CustomInput v-model="selected_appointment[2]" label="Estación" />
                     <h3 class="mt-3">
                         Fecha de Inicio:
                     </h3>
@@ -52,11 +54,15 @@ const date_one = ref(null);
 const date_two = ref(null);
 
 const format_data = (raw) => {
-    const appointments_ = raw.map(({ idCitaCit, duracionCit, fechaCit, fechaFinCit, idLavadorCit }) => {
+    const appointments_ = raw.map((
+        { idCita_cit, nombre_lav, descripcion_est, duracion_cit, 
+            fecha_cit, fechaFin_cit, idLavadorCit }) => {
         const format_date = (date) => {
             return moment(date, 'YYYY-MM-DDTHH:mm:ss.SS').locale('es').format('D [de] MMMM YYYY, h:mm A');
         }
-        return Object.values({ idCitaCit, idLavadorCit, fechaCit: format_date(fechaCit), fechaFinCit: format_date(fechaFinCit), duracionCit })
+        return Object.values({ idCita_cit, nombre_lav, descripcion_est,
+            fechaCit: format_date(fecha_cit), fechaFinCit: format_date(fechaFin_cit), 
+            duracion_cit })
     });
     return appointments_;
 }
@@ -72,6 +78,8 @@ const open_appointment_modal = (value) => {
 }
 const cancel_appointment = async () => {
     await auth.cancel_appointment(selected_appointment.value[0]);
+    
+    await auth.get_citas();
     modal_appointment_detail.value = false;
 }
 

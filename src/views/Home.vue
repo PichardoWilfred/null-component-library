@@ -76,38 +76,40 @@
               Programar cita
           </button>
       </div>
+      <!-- cita programada -->
       <CustomModal v-if="appointment_modal" title="Programar una cita" @closeModal="() => { appointment_modal = false }">
-          <div class="text-gray-200">
-            <p>
-              Seleccione una fecha en la cual usted desee pautar su cita
-            </p>
-            <div class="relative flex max-w-[520px] my-3 pb-5">
-              <div class="me-3 max-w-[180px]">
-                <h4>Fecha: <span v-if="changed_date" class="text-[12px]">(mañana)</span> </h4>
-                <VueDatePicker v-model="date" locale="es" :enable-time-picker="false" :clearable="false" 
-                :allowed-dates="available_dates" dark />
-            </div>
-              <div class="max-w-[140px]">
-                <h4>Hora: </h4>
-                <div class="relative">  
-                  <VueDatePicker v-model="hour"
-                  locale="es" time-picker :clearable="false" :is-24="false" dark />
-                  <div class="p-1 bg-[#17191D] w-max absolute top-[5px] left-[5px]">
-                      <Icon icon="ri:alarm-line" class="text-[1.2rem] text-gray-100" />
-                  </div>
+        <div class="text-gray-200">
+          <p>
+            Seleccione una fecha en la cual usted desee pautar su cita
+          </p>
+          <div class="relative flex max-w-[520px] my-3 pb-5">
+            <div class="me-3 max-w-[180px]">
+              <h4>Fecha: <span v-if="changed_date" class="text-[12px]">(mañana)</span> </h4>
+              <VueDatePicker v-model="date" locale="es" :enable-time-picker="false" :clearable="false" 
+              :allowed-dates="available_dates" dark />
+          </div>
+            <div class="max-w-[140px]">
+              <h4>Hora: </h4>
+              <div class="relative">  
+                <VueDatePicker v-model="hour"
+                locale="es" time-picker :clearable="false" :is-24="false" dark />
+                <div class="p-1 bg-[#17191D] w-max absolute top-[5px] left-[5px]">
+                    <Icon icon="ri:alarm-line" class="text-[1.2rem] text-gray-100" />
                 </div>
               </div>
-              <div v-if="invalid_appointment_date" class="absolute bottom-0 left-0 text-gray-300">
-                Porfavor seleccione una fecha y hora para su cita
-              </div>
             </div>
-            
-            <p class="text-gray-200">
-              Seleccione los servicios que necesite
-            </p>
-            <ServicesList @services="create_appointment" button_label="Crear Cita" />
+            <div v-if="invalid_appointment_date" class="absolute bottom-0 left-0 text-gray-300">
+              Porfavor seleccione una fecha y hora para su cita
+            </div>
           </div>
+          
+          <p class="text-gray-200">
+            Seleccione los servicios que necesite
+          </p>
+          <ServicesList @services="create_appointment" button_label="Crear Cita" />
+        </div>
       </CustomModal>
+      <!-- cita rápida -->
       <CustomModal v-if="fast_appointment_modal" title="Crear cita rápida" @closeModal="() => { fast_appointment_modal = false }">
         <div>
           <p class="text-gray-200 max-w-[700px]">

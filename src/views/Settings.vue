@@ -1,21 +1,21 @@
 <template>
   <div class="flex flex-col">
     <div v-if="washers" class="border-t border-gray-400 mb-20">
-      <CustomTable table_title="Lavadores" :column_headers="['ID', 'Lavador', 'Servicios Capaces', 'Activo']" :data="washers"
+      <CustomTable table_title="Lavadores" :column_headers="['ID', 'Lavador', 'Activo']" :data="washers"
       @selected_row="select_washer" />
     </div>
     <div v-if="stations" class="border-t border-gray-400">
-      <CustomTable table_title="Estaciones" :column_headers="['ID','Estación', 'Servicios', 'Activo']" :data="stations" 
+      <CustomTable table_title="Estaciones" :column_headers="['ID','Estación', 'Activo']" :data="stations" 
       @selected_row="select_station"/>
     </div>
     
     <CustomModal v-if="detail_washer_modal" title="Detalle de Lavador" @closeModal="() => { detail_washer_modal = false }">
       <div class="text-gray-200">
-        <CustomInput label="Nombre de Lavador" v-model="selected_washer[1]" class="pointer-events-none max-w-[180px]" />
-        <CustomInput label="Activo" v-model="selected_washer[3]" class="pointer-events-none max-w-[80px] min-w-[none]" />
+        <CustomInput v-model="selected_washer[1]" label="Nombre de Lavador" class="pointer-events-none max-w-[180px]" />
+        <CustomInput v-model="selected_washer[2]" label="Activo" class="pointer-events-none max-w-[80px] min-w-[none]" />
 
-        <ServicesList button_label="Guardar Cambios" real_time no_button :checked_services="washers_services" 
-        :detail_id="selected_washer[0]" @realTimeUpdate="updateWasherServices" />
+        <ServicesList button_label="Guardar Cambios" real_time no_button 
+        :checked_services="washers_services" :detail_id="selected_washer[0]" @realTimeUpdate="updateWasherServices" />
       </div>
     </CustomModal>
     
@@ -25,7 +25,7 @@
         <CustomInput label="Nombre de la Estación" 
         v-model="selected_station[1]" class="pointer-events-none max-w-[180px]" />
         <CustomInput label="Activa" 
-        v-model="selected_station[3]" class="pointer-events-none max-w-[80px] min-w-[none]" />
+        v-model="selected_station[2]" class="pointer-events-none max-w-[80px] min-w-[none]" />
 
         <ServicesList button_label="Guardar Cambios" real_time no_button :checked_services="station_services" 
         :detail_id="selected_station[0]" @realTimeUpdate="updateStationServices" />
@@ -58,9 +58,10 @@ const washers_services = ref(null);
 const detail_washer_modal = ref(false);
 
 const format_stations = (raw) => {
-  const stations_ = raw.map(({ idEstacionEst, descripcionEst, esActivo, idServicioEstsers }) => {
-    return Object.values({ idEstacionEst, descripcionEst, idServicioEstsers, esActivo: esActivo ? 'Si':'No' })
+  const stations_ = raw.map(({ idEstacionEst, descripcionEst, esActivo }) => {
+    return Object.values({ idEstacionEst, descripcionEst, esActivo: esActivo ? 'Si':'No' })
   });
+  console.log(stations_);
   return stations_;
 }
 
@@ -69,7 +70,7 @@ const select_washer = async (washer) => {
   washers_services.value = null; // services object to compare 
   selected_washer.value = washer // sended object
   washers_services.value = auth.washers_services.filter((element) => element.idLavadorLavser === selected_washer.value[0])
-  .map((el) => el.idServicioLavser);;
+  .map((el) => el.idServicioLavser);
   //modal
   detail_washer_modal.value = true;
 }
@@ -83,8 +84,8 @@ const station_services = ref(null);
 const detail_station_modal = ref(null);
 
 const format_washers = (raw) => {
-  const washers_ = raw.map(({ idLavadorLav, nombreLav, idServicioLavsers, esActivo }) => {
-    return Object.values({ idLavadorLav, nombreLav, idServicioLavsers, esActivo: esActivo ? 'Si':'No' })
+  const washers_ = raw.map(({ idLavadorLav, nombreLav, esActivo }) => {
+    return Object.values({ idLavadorLav, nombreLav, esActivo: esActivo ? 'Si':'No' })
   });
   return washers_;
 }

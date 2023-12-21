@@ -1,10 +1,12 @@
 <template>
     <div class="select-container">
         <div class="select-input" @click="show_options = !show_options">
-            <span>
+            <div class="label">
                 {{ modelValue.label }}
-            </span>
-            <Icon icon="material-symbols:keyboard-arrow-down-rounded" class="text-[1.2rem] text-gray-100" />
+            </div>
+            <div class="arrow-container">
+                <Icon icon="material-symbols:keyboard-arrow-down-rounded" class="text-[1.4rem] text-gray-100" />
+            </div>
         </div>
         <ul ref="options_reference" v-if="show_options" class="select-options">
             <li v-for="(option, index) in options" :key="index" @click="select_option(index)">
@@ -14,11 +16,25 @@
     </div>
 </template>
 <style scoped>
+/* hover:text-white hover:bg-gray-400  */
 .select-container {
     @apply relative flex items-center;
 }
+.select-container:hover .select-input .label {
+    @apply text-white;
+}
+.select-container:hover .select-input .arrow-container {
+    @apply text-white bg-gray-400;
+}
 .select-container .select-input {
-    @apply flex justify-between items-center border border-gray-400 rounded-[4px] p-1 ps-2 text-gray-100 hover:text-white hover:bg-gray-400 w-[60px] cursor-pointer transition-all;
+    @apply flex justify-between items-stretch border border-gray-400 rounded-[4px] ps-2 text-gray-100 
+    w-[60px] cursor-pointer transition-all;
+}
+.select-container .select-input .label {
+    @apply my-1 transition-all;
+}
+.select-container .select-input .arrow-container {
+    @apply flex items-center border-l border-gray-400 transition-all;
 }
 .select-container .select-options {
     @apply absolute top-[42px] left-0 flex flex-col overflow-y-scroll max-h-[50px] w-[60px] rounded-[4px] bg-gray-400;
@@ -29,7 +45,7 @@
 </style>
 <script setup>
 import { Icon } from '@iconify/vue';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core'
 
 const props = defineProps({
